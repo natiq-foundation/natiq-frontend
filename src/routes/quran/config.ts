@@ -11,11 +11,13 @@ const defaultConfigData = (uuid: string): QuranConfigProps => {
     return configFromLocalStorage
         ? {
               surahUUID: uuid,
+              ayahNumber: configFromLocalStorage.ayahNumber,
               translationView: configFromLocalStorage.translationView,
               translationUUID: configFromLocalStorage.translationUUID,
           }
         : {
               surahUUID: uuid,
+              ayahNumber: 1,
               translationView: true,
               translationUUID: undefined,
           };

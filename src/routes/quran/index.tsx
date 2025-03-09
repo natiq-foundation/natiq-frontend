@@ -10,6 +10,7 @@ import { defaultConfigData } from "./config";
 
 export interface QuranConfigProps {
     surahUUID: string;
+    ayahNumber: number;
     translationView: boolean;
     translationUUID: string | undefined;
 }
