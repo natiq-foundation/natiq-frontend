@@ -8,7 +8,7 @@ import { QuranConfigProps } from ".";
 import SurahHeader from "./surahHeader";
 import SurahText from "./text";
 
-const QuranView = (props: { config: QuranConfigProps }) => {
+const QuranView = ({ config }: { config: QuranConfigProps }) => {
     const navigate = useNavigate();
 
     const [surah, setSurah] = useState<SurahViewResponseData | null>(null);
@@ -16,11 +16,11 @@ const QuranView = (props: { config: QuranConfigProps }) => {
         useState<TranslationViewResponseData | null>(null);
 
     useEffect(() => {
-        navigate("/quran/" + props.config.surahUUID);
+        navigate("/quran/" + config.surahUUID);
         setSurah(null);
         setTranslation(null);
         controllerSurah
-            .view(props.config.surahUUID, {})
+            .view(config.surahUUID, {})
             .then((response) => {
                 setSurah(response.data);
             })
@@ -28,14 +28,14 @@ const QuranView = (props: { config: QuranConfigProps }) => {
                 if (error.status === 404) localStorage.clear();
                 navigate("/error/" + error.status);
             });
-    }, [props.config.surahUUID]); //eslint-disable-line
+    }, [config.surahUUID]); //eslint-disable-line
 
     useEffect(() => {
-        if (props.config.translationUUID)
+        if (config.translationUUID)
             controllerTranslation
-                .view(props.config.translationUUID, {
+                .view(config.translationUUID, {
                     params: {
-                        surah_uuid: props.config.surahUUID,
+                        surah_uuid: config.surahUUID,
                     },
                 })
                 .then((response) => {
@@ -45,19 +45,19 @@ const QuranView = (props: { config: QuranConfigProps }) => {
                     if (error.status === 404) localStorage.clear();
                     navigate("/error/" + error.status);
                 });
-    }, [props.config.surahUUID, props.config.translationUUID]); //eslint-disable-line
+    }, [config.surahUUID, config.translationUUID]); //eslint-disable-line
 
     return (
         <>
             {surah && translation ? (
                 <>
                     <SurahHeader
-                        config={props.config}
+                        config={config}
                         surahData={surah}
                         bismillahTranslation={translation.bismillah}
                     />
                     <SurahText
-                        config={props.config}
+                        config={config}
                         surahData={surah}
                         translationData={translation}
                     />

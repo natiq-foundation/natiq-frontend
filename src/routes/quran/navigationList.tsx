@@ -13,11 +13,13 @@ import {
     Loading,
     Select,
     CheckBox,
+    Hr,
 } from "@yakad/ui";
 
 import { QuranConfigProps } from ".";
 import { selectDefaultTranslationUUIDFromList } from "./config";
 import { controllerSurah, controllerTranslation } from "connection";
+import ViewModeSelect from "components/viewModeSelect";
 
 interface CollapseList {
     [n: number]: boolean;
@@ -92,7 +94,10 @@ const NavigationList = (props: {
     );
 };
 
-const NavListItemsQuran = (props: {
+const NavListItemsQuran = ({
+    config,
+    setConfig,
+}: {
     config: QuranConfigProps;
     setConfig: any;
 }) => {
@@ -109,34 +114,86 @@ const NavListItemsQuran = (props: {
     }, []); //eslint-disable-line
 
     return (
-        <ListItem>
-            {surahList ? (
-                <Select
-                    variant="filled"
-                    name="surahUUID"
-                    placeholder="Surah"
-                    defaultValue={
-                        props.config.surahUUID
-                            ? props.config.surahUUID
-                            : undefined
-                    }
+        <>
+            {/* <ListItem>
+                <ViewModeSelect
+                    name="viewMode"
+                    defaultValue={config.viewMode}
+                    onChange={(e) => {
+                        setConfig({
+                            ...config,
+                            viewMode: e.target.value,
+                        });
+                        alert("ZZ");
+                    }}
+                />
+                <Hr />
+                <select
+                    defaultValue={config.viewMode}
                     onChange={(e) =>
-                        props.setConfig({
-                            ...props.config,
-                            surahUUID: e.target.value,
+                        setConfig({
+                            ...config,
+                            viewMode: e.target.value,
                         })
                     }
                 >
-                    {surahList.map((surah) => (
-                        <option key={surah.uuid} value={surah.uuid}>
-                            {surah.number + " - " + surah.names[0].arabic}
-                        </option>
-                    ))}
-                </Select>
-            ) : (
-                <Loading variant="dots" />
-            )}
-        </ListItem>
+                    <option value="view1">View 1</option>
+                    <option value="view2">View 2</option>
+                </select>
+            </ListItem> */}
+            <ListItem>
+                {surahList ? (
+                    <>
+                        <Select
+                            variant="filled"
+                            name="surahUUID"
+                            placeholder="Surah"
+                            defaultValue={config.surahUUID}
+                            onChange={(e) =>
+                                setConfig({
+                                    ...config,
+                                    surahUUID: e.target.value,
+                                })
+                            }
+                        >
+                            {surahList.map((surah) => (
+                                <option key={surah.uuid} value={surah.uuid}>
+                                    {surah.number +
+                                        " - " +
+                                        surah.names[0].arabic}
+                                </option>
+                            ))}
+                        </Select>
+                        <Select
+                            variant="filled"
+                            name="ayahNumber"
+                            placeholder="Ayah Number"
+                            defaultValue={config.ayahNumber}
+                            onChange={(e) =>
+                                setConfig({
+                                    ...config,
+                                    ayahNumber: e.target.value,
+                                })
+                            }
+                        >
+                            {surahList.map(
+                                (surah: SurahListResponseItem) =>
+                                    surah.uuid === config.surahUUID &&
+                                    Array.from({
+                                        length: surah.number_of_ayahs,
+                                    }).map((_, index) => (
+                                        <option key={index} value={index + 1}>
+                                            {index + 1}
+                                        </option>
+                                    ))
+                            )}
+                        </Select>
+                    </>
+                ) : (
+                    <Loading variant="dots" />
+                )}
+            </ListItem>
+        </>
     );
 };
 

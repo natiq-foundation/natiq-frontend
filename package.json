@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@ntq/sdk": "1.1.39",
+        "@ntq/sdk": "1.1.47",
         "@types/jest": "27.5.2",
         "@types/node": "16.18.104",
         "@types/react": "18.3.3",

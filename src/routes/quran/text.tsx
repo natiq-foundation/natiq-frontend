@@ -62,11 +62,7 @@ const AyahBox = ({ children }: AyahBoxProps) => (
     </Stack>
 );
 
-interface AyahTextProps {
-    ayah: SurahViewResponseAyah;
-}
-
-const AyahText = ({ ayah }: AyahTextProps) => (
+const AyahText = ({ ayah }: { ayah: SurahViewResponseAyah }) => (
     <span
         style={{
             fontFamily: "hafs",
