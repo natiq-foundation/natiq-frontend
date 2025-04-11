@@ -9,6 +9,7 @@ import QuranView from "./quran";
 import { defaultConfigData } from "./config";
 
 export interface QuranConfigProps {
+    viewMode: string;
     surahUUID: string;
     ayahNumber: number;
     translationView: boolean;

@@ -13,6 +13,7 @@ import {
     Loading,
     Select,
     CheckBox,
+    Hr,
 } from "@yakad/ui";
 
 import { QuranConfigProps } from ".";
@@ -114,6 +115,32 @@ const NavListItemsQuran = ({
 
     return (
         <>
+            {/* <ListItem>
+                <ViewModeSelect
+                    name="viewMode"
+                    defaultValue={config.viewMode}
+                    onChange={(e) => {
+                        setConfig({
+                            ...config,
+                            viewMode: e.target.value,
+                        });
+                        alert("ZZ");
+                    }}
+                />
+                <Hr />
+                <select
+                    defaultValue={config.viewMode}
+                    onChange={(e) =>
+                        setConfig({
+                            ...config,
+                            viewMode: e.target.value,
+                        })
+                    }
+                >
+                    <option value="view1">View 1</option>
+                    <option value="view2">View 2</option>
+                </select>
+            </ListItem> */}
             <ListItem>
                 {surahList ? (
                     <>
@@ -165,9 +192,6 @@ const NavListItemsQuran = ({
                 ) : (
                     <Loading variant="dots" />
                 )}
-            </ListItem>
-            <ListItem>
-                <ViewModeSelect />
             </ListItem>
         </>
     );
