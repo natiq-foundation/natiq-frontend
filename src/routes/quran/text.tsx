@@ -1,23 +1,24 @@
 import React from "react";
 import {
-    SurahViewResponseAyah,
-    SurahViewResponseData,
-    TranslationViewResponseAyah,
+    SurahsViewResponseAyah,
+    SurahsViewResponseData,
+    // TranslationViewResponseAyah,
     TranslationViewResponseData,
 } from "@ntq/sdk";
 import { Container, Stack } from "@yakad/ui";
-
 import { QuranConfigProps } from ".";
+
+// import { QuranConfigProps } from ".";
 
 const toArabic = (str: any) => str.toLocaleString("ar-EG");
 
 interface SurahTextProps {
     config: QuranConfigProps;
-    surahData: SurahViewResponseData;
+    surahData: SurahsViewResponseData;
     translationData: TranslationViewResponseData;
 }
 
-const SurahText = ({ config, surahData, translationData }: SurahTextProps) => (
+const SurahText = ({ surahData,config, translationData}: SurahTextProps) => (
     <Container
         size="md"
         dir="rtl"
@@ -27,14 +28,15 @@ const SurahText = ({ config, surahData, translationData }: SurahTextProps) => (
         }}
     >
         {surahData.ayahs
-            .slice(surahData.bismillah_as_first_ayah ? 1 : 0)
-            .map((ayah: SurahViewResponseAyah) =>
+            .slice(surahData.ayahs[0].is_bismillah ? 1 : 0)
+            .map((ayah: any) =>
                 config.translationView ? (
                     <AyahBox key={ayah.number}>
                         <AyahText ayah={ayah} />
                         <AyahTranslation
                             translationText={
-                                translationData.ayahs[ayah.number - 1]
+                                // translationData.ayahs[ayah.number - 1]
+                                {number: 1, text: "1"}
                             }
                         />
                     </AyahBox>
@@ -62,7 +64,7 @@ const AyahBox = ({ children }: AyahBoxProps) => (
     </Stack>
 );
 
-const AyahText = ({ ayah }: { ayah: SurahViewResponseAyah }) => (
+const AyahText = ({ ayah }: { ayah: SurahsViewResponseAyah }) => (
     <span
         style={{
             fontFamily: "hafs",
@@ -89,7 +91,7 @@ const AyahText = ({ ayah }: { ayah: SurahViewResponseAyah }) => (
 );
 
 interface AyahTranslationProps {
-    translationText: TranslationViewResponseAyah;
+    translationText: {text: string, number: number};
 }
 
 const AyahTranslation = ({ translationText }: AyahTranslationProps) => (

@@ -1,13 +1,13 @@
 import { Spacer, Container, Row } from "@yakad/ui";
 import { QuranConfigProps } from ".";
 import SurahPeriodIcon from "components/surahPeriodIcon";
-import { SurahViewResponseData } from "@ntq/sdk";
+import { SurahsViewResponseData } from "@ntq/sdk";
 
 const toArabic = (input: any) => input.toLocaleString("ar-EG");
 
 const SurahHeader = (props: {
     config: QuranConfigProps;
-    surahData: SurahViewResponseData;
+    surahData: SurahsViewResponseData;
     bismillahTranslation: string;
 }) => (
     <Container
@@ -35,11 +35,12 @@ const SurahHeader = (props: {
                     fontSize: "3rem",
                 }}
             >
-                {props.surahData.names[0].arabic}
+                {props.surahData.names[0].name}
             </h3>
-            <SurahPeriodIcon period={props.surahData.period} />
+            {/* TODO: Is this ok? */}
+            <SurahPeriodIcon period={props.surahData.period || "madani"} />
         </Row>
-        {props.surahData.bismillah_as_first_ayah ? (
+        {props.surahData.ayahs[0].is_bismillah? (
             <>
                 <h3
                     style={{
@@ -69,7 +70,7 @@ const SurahHeader = (props: {
                     </h4>
                 ) : null}
             </>
-        ) : props.surahData.bismillah_status ? (
+        ) : (
             <>
                 <h3
                     style={{
@@ -81,7 +82,7 @@ const SurahHeader = (props: {
                         margin: "0",
                     }}
                 >
-                    {props.surahData.bismillah_text}
+                    {props.surahData.ayahs[0].bismillah_text}
                 </h3>
                 {props.config.translationView ? (
                     <h4
@@ -95,7 +96,7 @@ const SurahHeader = (props: {
                     </h4>
                 ) : null}
             </>
-        ) : null}
+        )}
     </Container>
 );
 

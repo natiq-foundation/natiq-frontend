@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { SurahListResponseItem, SurahListResponseData } from "@ntq/sdk";
+import { SurahsListResponseItem, SurahsListResponseData } from "@ntq/sdk";
 import { filterArrayBySearch } from "@yakad/lib";
 import {
     Container,
@@ -17,9 +17,9 @@ import RandomSurahButton from "components/randomSurahButton";
 import GoToSurahButton from "components/goToSurahButton";
 import SurahPeriodIcon from "components/surahPeriodIcon";
 
-const Search = (props: { surahList: SurahListResponseData }) => {
+const Search = (props: { surahList: SurahsListResponseData }) => {
     const [filteredSurahList, setFilteredSurahList] =
-        useState<SurahListResponseData>(props.surahList);
+        useState<SurahsListResponseData>(props.surahList);
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -99,17 +99,17 @@ const SearchBar = (props: { onSearch: (query: string) => void }) => {
     );
 };
 
-const RelatedSurahs = (props: { surahList: SurahListResponseData }) => (
+const RelatedSurahs = (props: { surahList: SurahsListResponseData }) => (
     <Row style={{ marginTop: "2rem" }} overflow="scroll">
         <RandomSurahButton surahList={props.surahList} />
-        <GoToSurahButton surahList={props.surahList} surahNumber={55} />
+        {/* <GoToSurahButton surahList={props.surahList} surahNumber={55} />
         <GoToSurahButton surahList={props.surahList} surahNumber={36} />
         <GoToSurahButton surahList={props.surahList} surahNumber={48} />
-        <GoToSurahButton surahList={props.surahList} surahNumber={89} />
+        <GoToSurahButton surahList={props.surahList} surahNumber={89} /> */}
     </Row>
 );
 
-const SearchResult = (props: { surahList: SurahListResponseItem[] }) => (
+const SearchResult = (props: { surahList: SurahsListResponseItem[] }) => (
     <div
         style={{
             width: "100%",
@@ -135,7 +135,7 @@ const SearchResult = (props: { surahList: SurahListResponseItem[] }) => (
     </div>
 );
 
-const SurahLinkBox = (props: { surah: SurahListResponseData[0] }) => (
+const SurahLinkBox = (props: { surah: SurahsListResponseData[0] }) => (
     <Link to={`/quran/${props.surah.uuid}`}>
         <Card>
             <Row>
@@ -158,9 +158,9 @@ const SurahLinkBox = (props: { surah: SurahListResponseData[0] }) => (
                                 fontWeight: "bold",
                             }}
                         >
-                            {props.surah.names[0].arabic}
+                            {props.surah.names[0].name}
                         </span>
-                        <SurahPeriodIcon period={props.surah.period} />
+                        <SurahPeriodIcon period={props.surah.period!} />
                     </Row>
                 </Stack>
             </Row>
