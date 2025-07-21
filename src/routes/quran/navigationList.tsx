@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-    SurahListResponseItem,
-    TranslationListResponseItem,
+    LangCodeType,
+    SurahsListResponseItem,
+    TranslationsListResponseData,
     getLangNameFromCode,
 } from "@ntq/sdk";
 import {
@@ -18,7 +19,7 @@ import {
 
 import { QuranConfigProps } from ".";
 import { selectDefaultTranslationUUIDFromList } from "./config";
-import { controllerSurah, controllerTranslation } from "connection";
+import { controllerMushaf, controllerSurah, controllerTranslation } from "connection";
 import ViewModeSelect from "components/viewModeSelect";
 
 interface CollapseList {
@@ -101,13 +102,13 @@ const NavListItemsQuran = ({
     config: QuranConfigProps;
     setConfig: any;
 }) => {
-    const [surahList, setSurahList] = useState<SurahListResponseItem[] | null>(
+    const [surahList, setSurahList] = useState<SurahsListResponseItem[] | null>(
         null
     );
 
     useEffect(() => {
         controllerSurah
-            .list({ params: { mushaf: "hafs" } })
+            .list({ params: { mushaf: "hafs", page_size: 115 } })
             .then((response) => {
                 setSurahList(response.data);
             });
@@ -160,7 +161,7 @@ const NavListItemsQuran = ({
                                 <option key={surah.uuid} value={surah.uuid}>
                                     {surah.number +
                                         " - " +
-                                        surah.names[0].arabic}
+                                        surah.names[0].name}
                                 </option>
                             ))}
                         </Select>
@@ -177,7 +178,7 @@ const NavListItemsQuran = ({
                             }
                         >
                             {surahList.map(
-                                (surah: SurahListResponseItem) =>
+                                (surah: SurahsListResponseItem) =>
                                     surah.uuid === config.surahUUID &&
                                     Array.from({
                                         length: surah.number_of_ayahs,
@@ -229,15 +230,20 @@ const NavListItemsTranslation = (props: {
     setConfig: any;
 }) => {
     const [translationList, setTranslationList] = useState<
-        TranslationListResponseItem[] | null
+        TranslationsListResponseData | null
     >(null);
 
     useEffect(() => {
+        controllerMushaf.list().then(response => {
         controllerTranslation
-            .list({ params: { mushaf: "hafs" } })
+            .list({  params: {
+                language: "en",
+                mushaf_uuid: response.data[0].uuid
+            }  })
             .then((response) => {
                 setTranslationList(response.data);
             });
+        })
     }, []); // eslint-disable-line
 
     //Set a Translation as Default if no one selected before
@@ -289,9 +295,9 @@ const NavListItemsTranslation = (props: {
                                 key={translation.uuid}
                                 value={translation.uuid}
                             >
-                                {getLangNameFromCode(translation.language) +
+                                {getLangNameFromCode(translation.language as LangCodeType) +
                                     " - " +
-                                    translation.translator.username}
+                                    translation.translator_uuid}
                             </option>
                         ))}
                     </Select>

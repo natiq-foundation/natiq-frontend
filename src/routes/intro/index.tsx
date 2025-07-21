@@ -1,18 +1,28 @@
 import { Link } from "react-router-dom";
-import { SurahListResponseData } from "@ntq/sdk";
-import { Main, Screen, Spacer, Button, Footer, Row } from "@yakad/ui";
+import { SurahsListResponseData } from "@ntq/sdk";
+import { Main, Screen, Spacer, Button, Footer, Row, Loading } from "@yakad/ui";
 import { Xbackground, XgetStart } from "@yakad/x";
 
 import Search from "./search";
 import IntroAppBar from "./appBar";
-import surahListJson from "assets/json/surahList.json";
 import { ReactComponent as LogoIcon } from "assets/svg/logoicon.svg";
 import JumpToSearchFieldButton from "components/jumpToSearchFieldButton";
 import LastReadingButton from "components/lastReadingButton";
+import { useEffect, useState } from "react";
+import { controllerSurah } from "connection";
 
 const Intro = () => {
-    const surahList: SurahListResponseData =
-        surahListJson as SurahListResponseData;
+    const [surahList, setSurahList] = useState<SurahsListResponseData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        controllerSurah
+            .list({ params: { mushaf: "hafs", page_size: 200 } })
+            .then((response: { data: SurahsListResponseData }) => {
+                setSurahList(response.data);
+            })
+            .finally(() => setLoading(false));
+    }, []);
 
     return (
         <Screen>
@@ -23,7 +33,13 @@ const Intro = () => {
                         <IntroGetStartBox />
                     </XgetStart>
                 </Xbackground>
-                <Search surahList={surahList} />
+                {loading ? (
+                    <Loading variant="dots" size="large" />
+                ) : surahList ? (
+                    <Search surahList={surahList} />
+                ) : (
+                    <div>Error loading surah list.</div>
+                )}
             </Main>
             <IntroFooter />
         </Screen>
