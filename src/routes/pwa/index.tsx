@@ -9,6 +9,8 @@ import {
     SvgIcon,
     Spacer,
     Stack,
+    H1,
+    H2,
 } from "@yakad/ui";
 import Symbol from "@yakad/symbols";
 
@@ -57,7 +59,7 @@ export default function Pwa() {
                         <SvgIcon size={15}>
                             <Logo />
                         </SvgIcon>
-                        <h2>Natiq PWA</h2>
+                        <H2>Natiq PWA</H2>
                         <p>Wellcome to Natiq PWA mode</p>
                         <ul style={{ textAlign: "start" }}>
                             <li>Use like your native apps</li>
@@ -95,7 +97,7 @@ const PwaAppBar = () => (
         <SvgIcon size={5}>
             <Logo />
         </SvgIcon>
-        <h1
+        <H1
             style={{
                 fontFamily: "arial",
                 fontSize: "2.4rem",
@@ -104,7 +106,7 @@ const PwaAppBar = () => (
             }}
         >
             Natiq
-        </h1>
+        </H1>
         <Spacer />
         <Link to="/">
             <Button

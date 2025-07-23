@@ -11,6 +11,7 @@ import {
     Spacer,
     Stack,
     Hr,
+    H2,
 } from "@yakad/ui";
 
 import RandomSurahButton from "components/randomSurahButton";
@@ -117,12 +118,12 @@ const SearchResult = (props: { surahList: SurahsListResponseItem[] }) => (
             marginBottom: "2rem",
         }}
     >
-        <h2 style={{ marginBottom: "0", fontSize: "3.4rem" }}>Surahs List</h2>
+        <H2 style={{ marginBottom: "0", fontSize: "3.4rem" }}>Surahs List</H2>
         <Hr marginx={2} />
         {props.surahList.length === 0 ? (
-            <h2 style={{ margin: "5rem auto", textAlign: "center" }}>
+            <H2 style={{ margin: "5rem auto", textAlign: "center" }}>
                 No Search Result
-            </h2>
+            </H2>
         ) : (
             <GridContainer>
                 {props.surahList.map((surah) => (

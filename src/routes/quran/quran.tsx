@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SurahsViewResponseData, TranslationViewResponseData } from "@ntq/sdk";
+import { SurahsViewResponseData, TranslationsViewResponseData } from "@ntq/sdk";
 import { Loading } from "@yakad/ui";
 
 import { controllerSurah, controllerTranslation } from "connection";
@@ -13,7 +13,7 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
 
     const [surah, setSurah] = useState<SurahsViewResponseData | null>(null);
     const [translation, setTranslation] =
-        useState<TranslationViewResponseData | null>(null);
+        useState<TranslationsViewResponseData | null>(null);
 
     useEffect(() => {
         navigate("/quran/" + config.surahUUID);
@@ -30,32 +30,37 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
             });
     }, [config.surahUUID]); //eslint-disable-line
 
-    // useEffect(() => {
-    //     if (config.translationUUID)
-    //         controllerTranslation
-    //             .view(config.translationUUID, {params: {surah_uuid: config.surahUUID}})
-    //             .then((response) => {
-    //                 setTranslation(response.data);
-    //             })
-    //             .catch((error) => {
-    //                 if (error.status === 404) localStorage.clear();
-    //                 navigate("/error/" + error.status);
-    //             });
-    // }, [config.surahUUID, config.translationUUID]); //eslint-disable-line
+    useEffect(() => {
+        if (config.translationUUID)
+            controllerTranslation
+                .view(config.translationUUID, {
+                    params: {
+                        surah_uuid: config.surahUUID,
+                        page_size: 1000,
+                    }}
+                )
+                .then((response) => {
+                    setTranslation(response.data);
+                })
+                .catch((error) => {
+                    if (error.status === 404) localStorage.clear();
+                    navigate("/error/" + error.status);
+                });
+    }, [config.surahUUID, config.translationUUID]); //eslint-disable-line
 
     return (
         <>
-            {surah ? (
+            {surah && translation ? (
                 <>
                     <SurahHeader
                         config={config}
                         surahData={surah}
-                        bismillahTranslation={"BISMILLAH NOT FOUND"}
+                        bismillahTranslation={translation.ayahs[0].bismillah || ""}
                     />
                     <SurahText
                         config={config}
                         surahData={surah}
-                        translationData={{ayahs_translations: []} as any}
+                        translationData={translation}
                     />
                 </>
             ) : (

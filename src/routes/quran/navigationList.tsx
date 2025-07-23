@@ -237,8 +237,8 @@ const NavListItemsTranslation = (props: {
         controllerMushaf.list().then(response => {
         controllerTranslation
             .list({  params: {
-                language: "en",
-                mushaf_uuid: response.data[0].uuid
+                mushaf_uuid: response.data[0].uuid,
+                language: null!, // TODO: remove this sdk needs to be updated
             }  })
             .then((response) => {
                 setTranslationList(response.data);
