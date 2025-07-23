@@ -1,4 +1,4 @@
-import { Spacer, Container, Row } from "@yakad/ui";
+import { Spacer, Container, Row, H3, H1, H4 } from "@yakad/ui";
 import { QuranConfigProps } from ".";
 import SurahPeriodIcon from "components/surahPeriodIcon";
 import { SurahsViewResponseData } from "@ntq/sdk";
@@ -29,20 +29,20 @@ const SurahHeader = (props: {
                 {"Surah: " + props.surahData.number}
             </span>
             <Spacer />
-            <h3
+            <H1
+                variant="heading4"
                 style={{
                     fontFamily: "hafs",
-                    fontSize: "3rem",
                 }}
             >
                 {props.surahData.names[0].name}
-            </h3>
+            </H1>
             {/* TODO: Is this ok? */}
             <SurahPeriodIcon period={props.surahData.period || "madani"} />
         </Row>
         {props.surahData.ayahs[0].is_bismillah? (
             <>
-                <h3
+                <H3
                     style={{
                         fontFamily: "hafs",
                         textAlign: "center",
@@ -56,9 +56,9 @@ const SurahHeader = (props: {
                     {" ﴿"}
                     {toArabic(props.surahData.ayahs[0].number)}
                     {"﴾"}
-                </h3>
+                </H3>
                 {props.config.translationView ? (
-                    <h4
+                    <H4
                         style={{
                             direction: "ltr",
                             fontFamily: "sans-serif",
@@ -67,12 +67,12 @@ const SurahHeader = (props: {
                     >
                         {props.bismillahTranslation}
                         {" (" + props.surahData.ayahs[0].number + ")"}
-                    </h4>
+                    </H4>
                 ) : null}
             </>
         ) : (
             <>
-                <h3
+                <H3
                     style={{
                         fontFamily: "hafs",
                         textAlign: "center",
@@ -83,9 +83,9 @@ const SurahHeader = (props: {
                     }}
                 >
                     {props.surahData.ayahs[0].bismillah_text}
-                </h3>
+                </H3>
                 {props.config.translationView ? (
-                    <h4
+                    <H4
                         style={{
                             direction: "ltr",
                             fontFamily: "sans-serif",
@@ -93,7 +93,7 @@ const SurahHeader = (props: {
                         }}
                     >
                         {props.bismillahTranslation}
-                    </h4>
+                    </H4>
                 ) : null}
             </>
         )}

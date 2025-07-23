@@ -2,8 +2,7 @@ import React from "react";
 import {
     SurahsViewResponseAyah,
     SurahsViewResponseData,
-    // TranslationViewResponseAyah,
-    TranslationViewResponseData,
+    TranslationsViewResponseData,
 } from "@ntq/sdk";
 import { Container, Stack } from "@yakad/ui";
 import { QuranConfigProps } from ".";
@@ -15,7 +14,7 @@ const toArabic = (str: any) => str.toLocaleString("ar-EG");
 interface SurahTextProps {
     config: QuranConfigProps;
     surahData: SurahsViewResponseData;
-    translationData: TranslationViewResponseData;
+    translationData: TranslationsViewResponseData;
 }
 
 const SurahText = ({ surahData,config, translationData}: SurahTextProps) => (
@@ -35,8 +34,7 @@ const SurahText = ({ surahData,config, translationData}: SurahTextProps) => (
                         <AyahText ayah={ayah} />
                         <AyahTranslation
                             translationText={
-                                // translationData.ayahs[ayah.number - 1]
-                                {number: 1, text: "1"}
+                                translationData.ayahs[ayah.number - 1]?.text || "Translation text for this ayah not found!"  
                             }
                         />
                     </AyahBox>
@@ -91,7 +89,7 @@ const AyahText = ({ ayah }: { ayah: SurahsViewResponseAyah }) => (
 );
 
 interface AyahTranslationProps {
-    translationText: {text: string, number: number};
+    translationText: string;
 }
 
 const AyahTranslation = ({ translationText }: AyahTranslationProps) => (
@@ -106,7 +104,7 @@ const AyahTranslation = ({ translationText }: AyahTranslationProps) => (
             opacity: "0.8",
         }}
     >
-        {`${translationText.text} ${translationText.number}`}
+        {translationText}
     </span>
 );
 

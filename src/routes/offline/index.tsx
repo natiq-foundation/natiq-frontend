@@ -8,6 +8,8 @@ import {
     AppBar,
     SvgIcon,
     Stack,
+    H1,
+    H2,
 } from "@yakad/ui";
 import Symbol from "@yakad/symbols";
 
@@ -46,7 +48,7 @@ export default function Offline() {
                 >
                     <Stack align="center">
                         <Symbol size={12} icon="offline_bolt" />
-                        <h2>You are offline</h2>
+                        <H2>You are offline</H2>
                     </Stack>
                     <Stack align="center">
                         <Button
@@ -77,7 +79,7 @@ const OfflineAppBar = () => (
         <SvgIcon size={5}>
             <Logo />
         </SvgIcon>
-        <h1
+        <H1
             style={{
                 fontFamily: "arial",
                 fontSize: "2.4rem",
@@ -86,6 +88,6 @@ const OfflineAppBar = () => (
             }}
         >
             Natiq
-        </h1>
+        </H1>
     </AppBar>
 );

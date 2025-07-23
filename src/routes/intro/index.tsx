@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { SurahsListResponseData } from "@ntq/sdk";
-import { Main, Screen, Spacer, Button, Footer, Row, Loading } from "@yakad/ui";
+import { Main, Screen, Spacer, Button, Footer, Row, Loading, H1, H2 } from "@yakad/ui";
 import { Xbackground, XgetStart } from "@yakad/x";
 
 import Search from "./search";
@@ -27,7 +27,7 @@ const Intro = () => {
     return (
         <Screen>
             <IntroAppBar />
-            <Main>
+            <Main style={{minHeight: "100%"}}>
                 <Xbackground variant="dotted">
                     <XgetStart logo={<LogoIcon />}>
                         <IntroGetStartBox />
@@ -48,7 +48,7 @@ const Intro = () => {
 
 const IntroGetStartBox = () => (
     <>
-        <h1
+        <H1
             style={{
                 fontFamily: "Hafs",
                 textAlign: "center",
@@ -65,8 +65,8 @@ const IntroGetStartBox = () => (
             <span style={{ fontSize: "7.7rem", color: "#aa8a59" }}>
                 النّاطِق
             </span>
-        </h1>
-        <h2 style={{ margin: "1rem" }}>Natiq Offline</h2>
+        </H1>
+        <H2 style={{ margin: "1rem" }}>Natiq Offline</H2>
         <p
             style={{
                 fontSize: "1.7rem",
