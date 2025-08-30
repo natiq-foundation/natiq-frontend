@@ -1,70 +1,66 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SurahsViewResponseData, TranslationsViewResponseData } from "@ntq/sdk";
-import { Loading } from "@yakad/ui";
-
-import { controllerSurah, controllerTranslation } from "connection";
+import { LoadingIcon } from "@yakad/ui";
 import { QuranConfigProps } from ".";
 import SurahHeader from "./surahHeader";
 import SurahText from "./text";
+import { SurahDetail, surahsRetrieve, translationsRetrieve, Translation, translationsAyahsRetrieve, translationsAyahsList, PaginatedAyahTranslationList } from "@ntq/sdk";
 
 const QuranView = ({ config }: { config: QuranConfigProps }) => {
     const navigate = useNavigate();
 
-    const [surah, setSurah] = useState<SurahsViewResponseData | null>(null);
+    const [surah, setSurah] = useState<SurahDetail | null>(null);
+    const [translationAyahs, setTranslationAyahs] =
+        useState<PaginatedAyahTranslationList | null>(null);
+
     const [translation, setTranslation] =
-        useState<TranslationsViewResponseData | null>(null);
+        useState<Translation | null>(null);
 
     useEffect(() => {
         navigate("/quran/" + config.surahUUID);
         setSurah(null);
-        setTranslation(null);
-        controllerSurah
-            .view(config.surahUUID, {})
-            .then((response) => {
-                setSurah(response.data);
-            })
-            .catch((error) => {
-                if (error.status === 404) localStorage.clear();
-                navigate("/error/" + error.status);
-            });
+        setTranslationAyahs(null);
+        surahsRetrieve({path: {uuid: config.surahUUID}}).then(data => {
+            setSurah(data.data || null);
+            console.log(data.error)
+        }).catch(err => {
+            console.error(err)
+        })
     }, [config.surahUUID]); //eslint-disable-line
 
     useEffect(() => {
-        if (config.translationUUID)
-            controllerTranslation
-                .view(config.translationUUID, {
-                    params: {
-                        surah_uuid: config.surahUUID,
-                        page_size: 1000,
-                    }}
-                )
-                .then((response) => {
-                    setTranslation(response.data);
-                })
-                .catch((error) => {
-                    if (error.status === 404) localStorage.clear();
-                    navigate("/error/" + error.status);
-                });
+        if (config.translationUUID) {
+            translationsRetrieve({path: {uuid: config.translationUUID}}).then(data => {
+                setTranslation(data.data || null);
+            }).catch(err => {
+                console.error(err)
+            })
+
+            translationsAyahsList({path: {uuid: config.translationUUID}, query:{surah_uuid: config.surahUUID}}).then(data => {
+                setTranslationAyahs(data.data || null);
+            }).catch(err => {
+                console.error(err)
+            })
+            }
     }, [config.surahUUID, config.translationUUID]); //eslint-disable-line
 
     return (
         <>
-            {surah && translation ? (
+            {surah && translation && translationAyahs ? (
                 <>
                     <SurahHeader
                         config={config}
                         surahData={surah}
-                        bismillahTranslation={translation.ayahs[0].bismillah || ""}
+                        bismillahTranslation={translationAyahs?.[0].bismillah || ""}
                     />
                     <SurahText
                         config={config}
                         surahData={surah}
-                        translationData={translation}
+                        translationData={translationAyahs || null}
                     />
                 </>
             ) : (
-                <Loading size="large" variant="dots" />
+                <LoadingIcon size="large" variant="dots" />
             )}
         </>
     );

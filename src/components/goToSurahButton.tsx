@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { SurahsListResponseData } from "@ntq/sdk";
+import { Surah } from "@ntq/sdk";
 import { Button } from "@yakad/ui";
 
 interface RandomSurahButtonProps {
-    surahList: SurahsListResponseData;
+    surahList: Surah[];
     surahNumber: number;
 }
 
@@ -16,7 +16,7 @@ const GoToSurahButton = (props: RandomSurahButtonProps) => {
 
     return (
         <Button variant="outlined" onClick={handleClick}>
-            {props.surahList[props.surahNumber - 1].names[0].name}
+            {(props.surahList[props.surahNumber - 1].names[0] as any).name}
         </Button>
     );
 };

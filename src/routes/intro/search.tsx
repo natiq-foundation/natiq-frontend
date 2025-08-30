@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { SurahsListResponseItem, SurahsListResponseData } from "@ntq/sdk";
+import { Surah, surahsList } from "@ntq/sdk";
 import { filterArrayBySearch } from "@yakad/lib";
 import {
     Container,
@@ -15,12 +15,11 @@ import {
 } from "@yakad/ui";
 
 import RandomSurahButton from "components/randomSurahButton";
-import GoToSurahButton from "components/goToSurahButton";
 import SurahPeriodIcon from "components/surahPeriodIcon";
 
-const Search = (props: { surahList: SurahsListResponseData }) => {
+const Search = (props: { surahList: Surah[] }) => {
     const [filteredSurahList, setFilteredSurahList] =
-        useState<SurahsListResponseData>(props.surahList);
+        useState<Surah[]>(props.surahList);
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -100,7 +99,7 @@ const SearchBar = (props: { onSearch: (query: string) => void }) => {
     );
 };
 
-const RelatedSurahs = (props: { surahList: SurahsListResponseData }) => (
+const RelatedSurahs = (props: { surahList: Surah[] }) => (
     <Row style={{ marginTop: "2rem" }} overflow="scroll">
         <RandomSurahButton surahList={props.surahList} />
         {/* <GoToSurahButton surahList={props.surahList} surahNumber={55} />
@@ -110,7 +109,7 @@ const RelatedSurahs = (props: { surahList: SurahsListResponseData }) => (
     </Row>
 );
 
-const SearchResult = (props: { surahList: SurahsListResponseItem[] }) => (
+const SearchResult = (props: { surahList: Surah[] }) => (
     <div
         style={{
             width: "100%",
@@ -136,7 +135,7 @@ const SearchResult = (props: { surahList: SurahsListResponseItem[] }) => (
     </div>
 );
 
-const SurahLinkBox = (props: { surah: SurahsListResponseData[0] }) => (
+const SurahLinkBox = (props: { surah: Surah }) => (
     <Link to={`/quran/${props.surah.uuid}`}>
         <Card>
             <Row>
@@ -159,7 +158,7 @@ const SurahLinkBox = (props: { surah: SurahsListResponseData[0] }) => (
                                 fontWeight: "bold",
                             }}
                         >
-                            {props.surah.names[0].name}
+                            {(props.surah.names[0] as any).name}
                         </span>
                         <SurahPeriodIcon period={props.surah.period!} />
                     </Row>

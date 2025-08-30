@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@yakad/ui";
 import { Xpanel } from "@yakad/x";
-import Symbol from "@yakad/symbols";
+import { Symbol } from "@yakad/symbols";
 
 import NavigationList from "./navigationList";
 import QuranView from "./quran";

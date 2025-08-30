@@ -1,4 +1,4 @@
-import { TranslationsListResponseData } from "@ntq/sdk";
+import { PaginatedTranslationListList, Translation } from "@ntq/sdk";
 import { QuranConfigProps } from ".";
 
 const defaultConfigData = (uuid: string): QuranConfigProps => {
@@ -26,7 +26,7 @@ const defaultConfigData = (uuid: string): QuranConfigProps => {
 };
 
 const selectDefaultTranslationUUIDFromList = (
-    translationList: TranslationsListResponseData
+    translationList: PaginatedTranslationListList
 ): string => {
     const language = "en";
     const defaultTranslation = translationList.find(
