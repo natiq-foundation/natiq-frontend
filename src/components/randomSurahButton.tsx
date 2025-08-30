@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { SurahsListResponseData } from "@ntq/sdk";
+import { Surah } from "@ntq/sdk";
 import { Button } from "@yakad/ui";
 
 interface RandomSurahButtonProps {
-    surahList: SurahsListResponseData;
+    surahList: Surah[];
 }
 
 const RandomSurahButton = (props: RandomSurahButtonProps) => {

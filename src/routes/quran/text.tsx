@@ -1,8 +1,9 @@
 import React from "react";
 import {
-    SurahsViewResponseAyah,
-    SurahsViewResponseData,
-    TranslationsViewResponseData,
+    PaginatedAyahTranslationList,
+    SurahDetail,
+    Translation,
+    
 } from "@ntq/sdk";
 import { Container, Stack } from "@yakad/ui";
 import { QuranConfigProps } from ".";
@@ -13,8 +14,8 @@ const toArabic = (str: any) => str.toLocaleString("ar-EG");
 
 interface SurahTextProps {
     config: QuranConfigProps;
-    surahData: SurahsViewResponseData;
-    translationData: TranslationsViewResponseData;
+    surahData: SurahDetail;
+    translationData: PaginatedAyahTranslationList;
 }
 
 const SurahText = ({ surahData,config, translationData}: SurahTextProps) => (
@@ -34,7 +35,7 @@ const SurahText = ({ surahData,config, translationData}: SurahTextProps) => (
                         <AyahText ayah={ayah} />
                         <AyahTranslation
                             translationText={
-                                translationData.ayahs[ayah.number - 1]?.text || "Translation text for this ayah not found!"  
+                                translationData[ayah.number - 1]?.text || "Translation text for this ayah not found!"  
                             }
                         />
                     </AyahBox>
@@ -62,7 +63,7 @@ const AyahBox = ({ children }: AyahBoxProps) => (
     </Stack>
 );
 
-const AyahText = ({ ayah }: { ayah: SurahsViewResponseAyah }) => (
+const AyahText = ({ ayah }: { ayah: SurahDetail["ayahs"][0] }) => (
     <span
         style={{
             fontFamily: "hafs",
@@ -71,7 +72,7 @@ const AyahText = ({ ayah }: { ayah: SurahsViewResponseAyah }) => (
         }}
     >
         {ayah.text}
-        {ayah.sajdah === "vajib" && (
+        {ayah.sajdah as any === "vajib" && (
             <span
                 title="Vajib Sajdah"
                 style={{ cursor: "help", fontWeight: "bold" }}
@@ -79,7 +80,7 @@ const AyahText = ({ ayah }: { ayah: SurahsViewResponseAyah }) => (
                 ۩
             </span>
         )}
-        {ayah.sajdah === "mustahab" && (
+        {ayah.sajdah as any === "mustahab" && (
             <span title="Mustahab Sajdah" style={{ cursor: "help" }}>
                 ۩
             </span>

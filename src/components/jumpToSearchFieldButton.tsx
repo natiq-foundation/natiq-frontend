@@ -1,5 +1,5 @@
 import { Button } from "@yakad/ui";
-import Symbol from "@yakad/symbols";
+import { Symbol } from "@yakad/symbols";
 
 const JumpToSearchFieldButton = () => {
     const handleClick = () => {

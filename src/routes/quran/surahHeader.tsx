@@ -1,13 +1,13 @@
 import { Spacer, Container, Row, H3, H1, H4 } from "@yakad/ui";
 import { QuranConfigProps } from ".";
 import SurahPeriodIcon from "components/surahPeriodIcon";
-import { SurahsViewResponseData } from "@ntq/sdk";
+import { SurahDetail } from "@ntq/sdk";
 
 const toArabic = (input: any) => input.toLocaleString("ar-EG");
 
 const SurahHeader = (props: {
     config: QuranConfigProps;
-    surahData: SurahsViewResponseData;
+    surahData: SurahDetail;
     bismillahTranslation: string;
 }) => (
     <Container
@@ -35,7 +35,7 @@ const SurahHeader = (props: {
                     fontFamily: "hafs",
                 }}
             >
-                {props.surahData.names[0].name}
+                {(props.surahData.names[0] as any).name}
             </H1>
             {/* TODO: Is this ok? */}
             <SurahPeriodIcon period={props.surahData.period || "madani"} />

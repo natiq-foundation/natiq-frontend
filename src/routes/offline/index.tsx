@@ -11,7 +11,7 @@ import {
     H1,
     H2,
 } from "@yakad/ui";
-import Symbol from "@yakad/symbols";
+import { Symbol } from "@yakad/symbols";
 
 import { isLocalhost } from "utils/isLocalhost";
 import { ReactComponent as Logo } from "assets/svg/logoicon.svg";

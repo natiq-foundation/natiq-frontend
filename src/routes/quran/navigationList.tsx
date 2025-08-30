@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-    LangCodeType,
-    SurahsListResponseItem,
-    TranslationsListResponseData,
-    getLangNameFromCode,
+    Surah,
+    surahsList,
+    Translation,
+    mushafsList,
+    translationsList,
+    PaginatedTranslationListList,
 } from "@ntq/sdk";
 import {
     List,
@@ -11,7 +13,7 @@ import {
     Button,
     Spacer,
     Row,
-    Loading,
+    LoadingIcon,
     Select,
     CheckBox,
     Hr,
@@ -19,7 +21,6 @@ import {
 
 import { QuranConfigProps } from ".";
 import { selectDefaultTranslationUUIDFromList } from "./config";
-import { controllerMushaf, controllerSurah, controllerTranslation } from "connection";
 import ViewModeSelect from "components/viewModeSelect";
 
 interface CollapseList {
@@ -102,16 +103,16 @@ const NavListItemsQuran = ({
     config: QuranConfigProps;
     setConfig: any;
 }) => {
-    const [surahList, setSurahList] = useState<SurahsListResponseItem[] | null>(
+    const [surahList, setSurahList] = useState<Surah[] | null>(
         null
     );
 
     useEffect(() => {
-        controllerSurah
-            .list({ params: { mushaf: "hafs", page_size: 115 } })
-            .then((response) => {
-                setSurahList(response.data);
-            });
+        surahsList({query: {mushaf: "hafs", limit: 115}}).then(data => {
+            setSurahList(data.data || null);
+        }).catch(err => {
+            console.error(err)
+        })
     }, []); //eslint-disable-line
 
     return (
@@ -161,7 +162,7 @@ const NavListItemsQuran = ({
                                 <option key={surah.uuid} value={surah.uuid}>
                                     {surah.number +
                                         " - " +
-                                        surah.names[0].name}
+                                        (surah.names[0] as any).name}
                                 </option>
                             ))}
                         </Select>
@@ -178,10 +179,10 @@ const NavListItemsQuran = ({
                             }
                         >
                             {surahList.map(
-                                (surah: SurahsListResponseItem) =>
+                                (surah) =>
                                     surah.uuid === config.surahUUID &&
                                     Array.from({
-                                        length: surah.number_of_ayahs,
+                                        length: parseInt(surah.number_of_ayahs) // FIX this
                                     }).map((_, index) => (
                                         <option key={index} value={index + 1}>
                                             {index + 1}
@@ -191,7 +192,7 @@ const NavListItemsQuran = ({
                         </Select>
                     </>
                 ) : (
-                    <Loading variant="dots" />
+                    <LoadingIcon variant="dots" />
                 )}
             </ListItem>
         </>
@@ -230,19 +231,20 @@ const NavListItemsTranslation = (props: {
     setConfig: any;
 }) => {
     const [translationList, setTranslationList] = useState<
-        TranslationsListResponseData | null
+        PaginatedTranslationListList | null
     >(null);
 
     useEffect(() => {
-        controllerMushaf.list().then(response => {
-        controllerTranslation
-            .list({  params: {
-                mushaf_uuid: response.data[0].uuid,
-                language: null!, // TODO: remove this sdk needs to be updated
-            }  })
-            .then((response) => {
-                setTranslationList(response.data);
-            });
+        mushafsList().then(response => {
+        translationsList({
+            query: {
+                mushaf: "hafs",
+            }
+        }).then(data => {
+                setTranslationList(data.data || null);
+            }).catch(err => {
+                console.error(err)
+            })
         })
     }, []); // eslint-disable-line
 
@@ -295,14 +297,14 @@ const NavListItemsTranslation = (props: {
                                 key={translation.uuid}
                                 value={translation.uuid}
                             >
-                                {getLangNameFromCode(translation.language as LangCodeType) +
+                                {translation.language +
                                     " - " +
                                     translation.translator_uuid}
                             </option>
                         ))}
                     </Select>
                 ) : (
-                    <Loading variant="dots" />
+                    <LoadingIcon variant="dots" />
                 )}
             </ListItem>
         </>

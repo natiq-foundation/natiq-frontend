@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { SurahsListResponseData } from "@ntq/sdk";
-import { Main, Screen, Spacer, Button, Footer, Row, Loading, H1, H2 } from "@yakad/ui";
+import { PaginatedSurahList, surahsList} from "@ntq/sdk";
+import { Main, Screen, Spacer, Button, Footer, Row, LoadingIcon, H1, H2 } from "@yakad/ui";
 import { Xbackground, XgetStart } from "@yakad/x";
 
 import Search from "./search";
@@ -9,19 +9,18 @@ import { ReactComponent as LogoIcon } from "assets/svg/logoicon.svg";
 import JumpToSearchFieldButton from "components/jumpToSearchFieldButton";
 import LastReadingButton from "components/lastReadingButton";
 import { useEffect, useState } from "react";
-import { controllerSurah } from "connection";
 
 const Intro = () => {
-    const [surahList, setSurahList] = useState<SurahsListResponseData | null>(null);
+    const [surahList, setSurahList] = useState<PaginatedSurahList | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        controllerSurah
-            .list({ params: { mushaf: "hafs", page_size: 200 } })
-            .then((response: { data: SurahsListResponseData }) => {
-                setSurahList(response.data);
-            })
-            .finally(() => setLoading(false));
+        surahsList({query: {mushaf: "hafs", limit: 200}}).then(data => {
+            setSurahList(data.data || null);
+        }).catch(err => {
+            console.error(err)
+        })
+        .finally(() => setLoading(false));
     }, []);
 
     return (
@@ -34,7 +33,7 @@ const Intro = () => {
                     </XgetStart>
                 </Xbackground>
                 {loading ? (
-                    <Loading variant="dots" size="large" />
+                    <LoadingIcon variant="dots" size="large" />
                 ) : surahList ? (
                     <Search surahList={surahList} />
                 ) : (
