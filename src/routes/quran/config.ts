@@ -1,4 +1,4 @@
-import { PaginatedTranslationListList, Translation } from "@ntq/sdk";
+import { PaginatedTranslationListList } from "@ntq/sdk";
 import { QuranConfigProps } from ".";
 
 const defaultConfigData = (uuid: string): QuranConfigProps => {

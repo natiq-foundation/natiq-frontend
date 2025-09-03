@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Surah, surahsList } from "@ntq/sdk";
+import { Surah } from "@ntq/sdk";
 import { filterArrayBySearch } from "@yakad/lib";
 import {
     Container,
@@ -18,8 +18,9 @@ import RandomSurahButton from "components/randomSurahButton";
 import SurahPeriodIcon from "components/surahPeriodIcon";
 
 const Search = (props: { surahList: Surah[] }) => {
-    const [filteredSurahList, setFilteredSurahList] =
-        useState<Surah[]>(props.surahList);
+    const [filteredSurahList, setFilteredSurahList] = useState<Surah[]>(
+        props.surahList
+    );
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
