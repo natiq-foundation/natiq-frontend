@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Surah } from "@ntq/sdk";
 import { filterArrayBySearch } from "@yakad/lib";
 import {
@@ -136,9 +136,10 @@ const SearchResult = (props: { surahList: Surah[] }) => (
     </div>
 );
 
-const SurahLinkBox = (props: { surah: Surah }) => (
-    <Link to={`/quran/${props.surah.uuid}`}>
-        <Card>
+const SurahLinkBox = (props: { surah: Surah }) => {
+    const navigate = useNavigate();
+    return (
+        <Card onClick={() => navigate(`/quran/${props.surah.uuid}`)}>
             <Row>
                 <span
                     style={{
@@ -166,7 +167,7 @@ const SurahLinkBox = (props: { surah: Surah }) => (
                 </Stack>
             </Row>
         </Card>
-    </Link>
-);
+    );
+};
 
 export default Search;
