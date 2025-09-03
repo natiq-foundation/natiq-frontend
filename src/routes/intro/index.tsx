@@ -66,7 +66,7 @@ const IntroGetStartBox = () => (
                 النّاطِق
             </span>
         </H1>
-        <H2 style={{ margin: "1rem" }}>Natiq Offline</H2>
+        <H2 style={{ margin: "1rem" }}>Natiq Quran</H2>
         <p
             style={{
                 fontSize: "1.7rem",
@@ -74,7 +74,7 @@ const IntroGetStartBox = () => (
                 marginBottom: "2rem",
             }}
         >
-            Read Quran in Natiq offline mode.
+            Natiq Foundation PWA Quran App.
         </p>
         <Row align="center">
             <JumpToSearchFieldButton />
