@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Surah } from "@ntq/sdk";
 import { filterArrayBySearch } from "@yakad/lib";
 import {
@@ -17,7 +17,7 @@ import {
 import RandomSurahButton from "components/randomSurahButton";
 import SurahPeriodIcon from "components/surahPeriodIcon";
 
-const Search = (props: { surahList: Surah[] }) => {
+export default function SearchSection(props: { surahList: Surah[] }) {
     const [filteredSurahList, setFilteredSurahList] = useState<Surah[]>(
         props.surahList
     );
@@ -43,7 +43,7 @@ const Search = (props: { surahList: Surah[] }) => {
             <SearchResult surahList={filteredSurahList} />
         </Container>
     );
-};
+}
 
 const SearchBar = (props: { onSearch: (query: string) => void }) => {
     const searchBarRef = useRef<HTMLInputElement>(null);
@@ -162,12 +162,10 @@ const SurahLinkBox = (props: { surah: Surah }) => {
                         >
                             {(props.surah.names[0] as any).name}
                         </span>
-                        <SurahPeriodIcon period={props.surah.period!} />
                     </Row>
                 </Stack>
+                <SurahPeriodIcon period={props.surah.period!} />
             </Row>
         </Card>
     );
 };
-
-export default Search;

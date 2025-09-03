@@ -16,7 +16,6 @@ import {
     Select,
     CheckBox,
 } from "@yakad/ui";
-
 import { QuranConfigProps } from ".";
 import { selectDefaultTranslationUUIDFromList } from "./config";
 
@@ -24,10 +23,10 @@ interface CollapseList {
     [n: number]: boolean;
 }
 
-const NavigationList = (props: {
+export default function NavigationList(props: {
     config: QuranConfigProps;
     setConfig: any;
-}) => {
+}) {
     const [collapsedList, setcollapsedList] = useState<CollapseList>({});
 
     const handleClickCollapseList = (index: number) =>
@@ -91,7 +90,7 @@ const NavigationList = (props: {
             ))}
         </List>
     );
-};
+}
 
 const NavListItemsQuran = ({
     config,
@@ -114,32 +113,6 @@ const NavListItemsQuran = ({
 
     return (
         <>
-            {/* <ListItem>
-                <ViewModeSelect
-                    name="viewMode"
-                    defaultValue={config.viewMode}
-                    onChange={(e) => {
-                        setConfig({
-                            ...config,
-                            viewMode: e.target.value,
-                        });
-                        alert("ZZ");
-                    }}
-                />
-                <Hr />
-                <select
-                    defaultValue={config.viewMode}
-                    onChange={(e) =>
-                        setConfig({
-                            ...config,
-                            viewMode: e.target.value,
-                        })
-                    }
-                >
-                    <option value="view1">View 1</option>
-                    <option value="view2">View 2</option>
-                </select>
-            </ListItem> */}
             <ListItem>
                 {surahList ? (
                     <>
@@ -308,5 +281,3 @@ const NavListItemsTranslation = (props: {
         </>
     );
 };
-
-export default NavigationList;

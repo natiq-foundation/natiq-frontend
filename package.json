@@ -9,16 +9,16 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "cra-template-pwa-typescript": "2.0.0",
-        "react": "^19",
-        "react-dom": "^19",
-        "react-scripts": "5.0.1",
-        "react-router-dom": "7.1.3",
         "@ntq/sdk": "latest",
         "@yakad/lib": "latest",
         "@yakad/symbols": "latest",
         "@yakad/ui": "latest",
-        "@yakad/x": "latest"
+        "@yakad/x": "latest",
+        "cra-template-pwa-typescript": "2.0.0",
+        "react": "^19",
+        "react-dom": "^19",
+        "react-router-dom": "7.1.3",
+        "react-scripts": "5.0.1"
     },
     "devDependencies": {
         "@types/react": "^19",
