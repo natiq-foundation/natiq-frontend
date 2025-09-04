@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Surah,
     surahsList,
-    Translation,
     mushafsList,
     translationsList,
     PaginatedTranslationListList,
@@ -16,21 +15,18 @@ import {
     LoadingIcon,
     Select,
     CheckBox,
-    Hr,
 } from "@yakad/ui";
-
 import { QuranConfigProps } from ".";
 import { selectDefaultTranslationUUIDFromList } from "./config";
-import ViewModeSelect from "components/viewModeSelect";
 
 interface CollapseList {
     [n: number]: boolean;
 }
 
-const NavigationList = (props: {
+export default function NavigationList(props: {
     config: QuranConfigProps;
     setConfig: any;
-}) => {
+}) {
     const [collapsedList, setcollapsedList] = useState<CollapseList>({});
 
     const handleClickCollapseList = (index: number) =>
@@ -94,7 +90,7 @@ const NavigationList = (props: {
             ))}
         </List>
     );
-};
+}
 
 const NavListItemsQuran = ({
     config,
@@ -103,46 +99,20 @@ const NavListItemsQuran = ({
     config: QuranConfigProps;
     setConfig: any;
 }) => {
-    const [surahList, setSurahList] = useState<Surah[] | null>(
-        null
-    );
+    const [surahList, setSurahList] = useState<Surah[] | null>(null);
 
     useEffect(() => {
-        surahsList({query: {mushaf: "hafs", limit: 115}}).then(data => {
-            setSurahList(data.data || null);
-        }).catch(err => {
-            console.error(err)
-        })
+        surahsList({ query: { mushaf: "hafs", limit: 115 } })
+            .then((data) => {
+                setSurahList(data.data || null);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }, []); //eslint-disable-line
 
     return (
         <>
-            {/* <ListItem>
-                <ViewModeSelect
-                    name="viewMode"
-                    defaultValue={config.viewMode}
-                    onChange={(e) => {
-                        setConfig({
-                            ...config,
-                            viewMode: e.target.value,
-                        });
-                        alert("ZZ");
-                    }}
-                />
-                <Hr />
-                <select
-                    defaultValue={config.viewMode}
-                    onChange={(e) =>
-                        setConfig({
-                            ...config,
-                            viewMode: e.target.value,
-                        })
-                    }
-                >
-                    <option value="view1">View 1</option>
-                    <option value="view2">View 2</option>
-                </select>
-            </ListItem> */}
             <ListItem>
                 {surahList ? (
                     <>
@@ -182,7 +152,7 @@ const NavListItemsQuran = ({
                                 (surah) =>
                                     surah.uuid === config.surahUUID &&
                                     Array.from({
-                                        length: parseInt(surah.number_of_ayahs) // FIX this
+                                        length: parseInt(surah.number_of_ayahs), // FIX this
                                     }).map((_, index) => (
                                         <option key={index} value={index + 1}>
                                             {index + 1}
@@ -230,22 +200,23 @@ const NavListItemsTranslation = (props: {
     config: QuranConfigProps;
     setConfig: any;
 }) => {
-    const [translationList, setTranslationList] = useState<
-        PaginatedTranslationListList | null
-    >(null);
+    const [translationList, setTranslationList] =
+        useState<PaginatedTranslationListList | null>(null);
 
     useEffect(() => {
-        mushafsList().then(response => {
-        translationsList({
-            query: {
-                mushaf: "hafs",
-            }
-        }).then(data => {
-                setTranslationList(data.data || null);
-            }).catch(err => {
-                console.error(err)
+        mushafsList().then((response) => {
+            translationsList({
+                query: {
+                    mushaf: "hafs",
+                },
             })
-        })
+                .then((data) => {
+                    setTranslationList(data.data || null);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        });
     }, []); // eslint-disable-line
 
     //Set a Translation as Default if no one selected before
@@ -310,5 +281,3 @@ const NavListItemsTranslation = (props: {
         </>
     );
 };
-
-export default NavigationList;

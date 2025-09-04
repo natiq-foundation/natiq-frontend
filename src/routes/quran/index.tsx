@@ -16,7 +16,7 @@ export interface QuranConfigProps {
     translationUUID: string | undefined;
 }
 
-const Quran = () => {
+export default function Quran() {
     const { id } = useParams();
 
     const [config, setConfig] = React.useState<QuranConfigProps>(
@@ -42,6 +42,4 @@ const Quran = () => {
             <QuranView config={config} />
         </Xpanel>
     );
-};
-
-export default Quran;
+}

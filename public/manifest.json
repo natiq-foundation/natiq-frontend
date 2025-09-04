@@ -1,6 +1,6 @@
 {
-    "short_name": "Natiq Offline",
-    "name": "Natiq Offline",
+    "short_name": "Natiq",
+    "name": "Natiq",
     "icons": [
         {
             "src": "favicon.ico",
@@ -18,8 +18,6 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": "./",
-    "display": "standalone",
-    "theme_color": "#222222",
-    "background_color": "#e9e9e9"
+    "start_url": "./?pwa=true",
+    "display": "standalone"
 }

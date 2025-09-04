@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { Surah, surahsList } from "@ntq/sdk";
+import { useNavigate } from "react-router-dom";
+import { Surah } from "@ntq/sdk";
 import { filterArrayBySearch } from "@yakad/lib";
 import {
     Container,
@@ -17,9 +17,10 @@ import {
 import RandomSurahButton from "components/randomSurahButton";
 import SurahPeriodIcon from "components/surahPeriodIcon";
 
-const Search = (props: { surahList: Surah[] }) => {
-    const [filteredSurahList, setFilteredSurahList] =
-        useState<Surah[]>(props.surahList);
+export default function SearchSection(props: { surahList: Surah[] }) {
+    const [filteredSurahList, setFilteredSurahList] = useState<Surah[]>(
+        props.surahList
+    );
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -42,7 +43,7 @@ const Search = (props: { surahList: Surah[] }) => {
             <SearchResult surahList={filteredSurahList} />
         </Container>
     );
-};
+}
 
 const SearchBar = (props: { onSearch: (query: string) => void }) => {
     const searchBarRef = useRef<HTMLInputElement>(null);
@@ -135,9 +136,10 @@ const SearchResult = (props: { surahList: Surah[] }) => (
     </div>
 );
 
-const SurahLinkBox = (props: { surah: Surah }) => (
-    <Link to={`/quran/${props.surah.uuid}`}>
-        <Card>
+const SurahLinkBox = (props: { surah: Surah }) => {
+    const navigate = useNavigate();
+    return (
+        <Card onClick={() => navigate(`/quran/${props.surah.uuid}`)}>
             <Row>
                 <span
                     style={{
@@ -160,12 +162,10 @@ const SurahLinkBox = (props: { surah: Surah }) => (
                         >
                             {(props.surah.names[0] as any).name}
                         </span>
-                        <SurahPeriodIcon period={props.surah.period!} />
                     </Row>
                 </Stack>
+                <SurahPeriodIcon period={props.surah.period!} />
             </Row>
         </Card>
-    </Link>
-);
-
-export default Search;
+    );
+};
