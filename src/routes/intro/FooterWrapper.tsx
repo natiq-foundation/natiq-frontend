@@ -14,7 +14,10 @@ export default function FooterWrapper() {
             <Link to="https://blog.natiq.net/sponsor" target="_blank">
                 <Button variant="link">Sponsor</Button>
             </Link>
-            <Link to="https://github.com/NatiqQuran/nq-offline" target="_blank">
+            <Link
+                to="https://github.com/natiq-foundation/nq-offline"
+                target="_blank"
+            >
                 <Button variant="link">GitHub</Button>
             </Link>
         </Footer>
