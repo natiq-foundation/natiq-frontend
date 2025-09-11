@@ -74,6 +74,9 @@ export default function NavigationList(props: {
                         variant={collapsedList[index] ? "text" : "elevated"}
                         borderstyle="semi"
                         onClick={() => handleClickCollapseList(index)}
+                        style={{
+                            marginInlineEnd: "1rem",
+                        }}
                     >
                         {item.name}
                         <Spacer />
@@ -81,10 +84,11 @@ export default function NavigationList(props: {
                     <List
                         collapsed={collapsedList[index]}
                         direction="column"
-                        style={{ marginTop: "1rem", marginInlineStart: "2rem" }}
+                        style={{
+                            padding: "1rem 1rem 2rem",
+                        }}
                     >
                         {item.navListItems}
-                        <div style={{ height: "2rem" }} />
                     </List>
                 </ListItem>
             ))}
