@@ -10,7 +10,7 @@ const toArabic = (str: any) => str.toLocaleString("ar-EG");
 interface SurahTextProps {
     config: QuranConfigProps;
     surahData: SurahDetail;
-    translationData: PaginatedAyahTranslationList;
+    translationData: PaginatedAyahTranslationList | null;
 }
 
 const SurahText = ({ surahData, config, translationData }: SurahTextProps) => (
@@ -28,12 +28,17 @@ const SurahText = ({ surahData, config, translationData }: SurahTextProps) => (
                 config.translationView ? (
                     <AyahBox>
                         <AyahText ayah={ayah} />
-                        <AyahTranslation
-                            translationText={
-                                translationData[ayah.number - 1]?.text ||
-                                "Translation text for this ayah not found!"
-                            }
-                        />
+
+                        {
+                            translationData && (
+                                <AyahTranslation
+                                    translationText={
+                                        translationData[ayah.number - 1]?.text ||
+                                        "Translation text for this ayah not found!"
+                                    }
+                                />
+                            )
+                        }
                     </AyahBox>
                 ) : (
                     <AyahText ayah={ayah} />

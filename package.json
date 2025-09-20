@@ -9,7 +9,7 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "@ntq/sdk": "latest",
+        "@ntq/sdk": "^1.1.86",
         "@yakad/lib": "latest",
         "@yakad/symbols": "latest",
         "@yakad/ui": "latest",
