@@ -9,11 +9,11 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "@ntq/sdk": "latest",
-        "@yakad/lib": "latest",
-        "@yakad/symbols": "latest",
-        "@yakad/ui": "latest",
-        "@yakad/x": "latest",
+        "@ntq/sdk": "1.1.86",
+        "@yakad/lib": "1.0.22",
+        "@yakad/symbols": "1.0.25",
+        "@yakad/ui": "1.3.123",
+        "@yakad/x": "1.1.30",
         "cra-template-pwa-typescript": "2.0.0",
         "react": "^19",
         "react-dom": "^19",

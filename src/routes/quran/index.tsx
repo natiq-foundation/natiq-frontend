@@ -30,10 +30,10 @@ export default function Quran() {
     return (
         <Xpanel
             name="Quran"
-            navigationchildren={
+            navigationChildren={
                 <NavigationList config={config} setConfig={setConfig} />
             }
-            appbarchildren={
+            appbarChildren={
                 <Link to="/">
                     <Button icon={<Symbol icon="search" />} />
                 </Link>

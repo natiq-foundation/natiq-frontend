@@ -16,6 +16,7 @@ import {
 const QuranView = ({ config }: { config: QuranConfigProps }) => {
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState<boolean>(true);
     const [surah, setSurah] = useState<SurahDetail | null>(null);
     const [translationAyahs, setTranslationAyahs] =
         useState<PaginatedAyahTranslationList | null>(null);
@@ -24,11 +25,13 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
 
     useEffect(() => {
         navigate("/quran/" + config.surahUUID);
+        setLoading(true);
         setSurah(null);
         setTranslationAyahs(null);
         surahsRetrieve({ path: { uuid: config.surahUUID } })
             .then((data) => {
                 setSurah(data.data || null);
+                setLoading(false)
                 console.log(data.error);
             })
             .catch((err) => {
@@ -37,10 +40,12 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
     }, [config.surahUUID]); //eslint-disable-line
 
     useEffect(() => {
+        setLoading(true)
         if (config.translationUUID) {
             translationsRetrieve({ path: { uuid: config.translationUUID } })
                 .then((data) => {
                     setTranslation(data.data || null);
+                    setLoading(false)
                 })
                 .catch((err) => {
                     console.error(err);
@@ -51,6 +56,7 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
                 query: { surah_uuid: config.surahUUID },
             })
                 .then((data) => {
+                    setLoading(false)
                     setTranslationAyahs(data.data || null);
                 })
                 .catch((err) => {
@@ -61,7 +67,8 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
 
     return (
         <>
-            {surah && translation && translationAyahs ? (
+            {
+                loading || !surah ? <LoadingIcon size="large" variant="dots" /> : (
                 <>
                     <SurahHeader
                         config={config}
@@ -73,12 +80,12 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
                     <SurahText
                         config={config}
                         surahData={surah}
-                        translationData={translationAyahs || null}
+                        translationData={translationAyahs}
                     />
                 </>
-            ) : (
-                <LoadingIcon size="large" variant="dots" />
-            )}
+            )
+                
+            }
         </>
     );
 };
