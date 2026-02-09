@@ -18,6 +18,6 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": "./?pwa=true",
+    "start_url": "/?source=pwa",
     "display": "standalone"
 }

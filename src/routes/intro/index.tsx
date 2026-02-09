@@ -81,7 +81,7 @@ const IntroGetStartBox = () => (
             <LastReadingButton />
         </Row>
         <p style={{ color: "#7d7d7d" }}>Suitable for all ages</p>
-        <a target="blank" href="https://blog.natiq.net/privacy-policy">
+        <a target="blank" href="https://natiq.org/privacy-policy">
             Privacy Policy
         </a>
     </>
