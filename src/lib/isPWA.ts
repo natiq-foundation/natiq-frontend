@@ -3,7 +3,6 @@ export function isStandaloneDisplayMode() {
 }
 
 export function isIOSStandalone() {
-  // Safari روی iOS یک خاصیت standalone روی navigator اضافه می‌کند
   return (window.navigator as any).standalone === true
 }
 

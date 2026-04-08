@@ -1,8 +1,6 @@
     import { generateSW } from 'vite-plugin-pwa'
 
     generateSW({
-      mode: 'development', // یا 'production'
-      outDir: 'dist', // پوشه‌ای که فایل‌ها میرن توش
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
