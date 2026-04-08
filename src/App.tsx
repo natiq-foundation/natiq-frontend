@@ -1,17 +1,25 @@
-import { Theme } from "@yakad/ui";
+import { ThemeProvider } from "@/components/ui/theme-provider"
+import Router from "./router"
 
-import Router from "./router";
-import "./assets/css/style.css";
-import { client } from "@ntq/sdk";
+import InstallPrompt from "@/lib/InstallPrompt"
+import IOSGuide from "@/routes/launcher/IOSGuide"
+import OnlineStatus from "@/modules/OnlineStatus"
 
-client.setConfig({
-    baseURL: process.env.REACT_APP_API_URL || "https://api.natiq.net",
-});
 
 export default function App() {
-    return (
-        <Theme>
-            <Router />
-        </Theme>
-    );
+  return (
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+      <div className="min-h-screen bg-background text-foreground">
+
+        <Router />
+
+        {/* PWA install UI */}
+        <IOSGuide />
+        <InstallPrompt />
+        <OnlineStatus />
+
+
+      </div>
+    </ThemeProvider>
+  )
 }
