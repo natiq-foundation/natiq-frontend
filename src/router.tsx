@@ -1,21 +1,16 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Intro from "routes/intro";
-import Apps from "routes/apps";
-import Iframe from "routes/iframe";
-import Quran from "routes/quran";
-import NotFound from "not-found";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Intro from "@/routes/intro"
+import Launcher from "@/routes/launcher"
+import IframePage from "@/routes/IframePage"
 
 export default function Router() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route index element={<Intro />} />
-                <Route path="/apps" element={<Apps />} />
-                <Route path="/iframe" element={<Iframe />} />
-                <Route path="/quran" element={<Navigate replace to="/" />} />
-                <Route path="/quran/:id" element={<Quran />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Intro />} />
+        <Route path="/launcher" element={<Launcher />} />
+        <Route path="/iframe" element={<IframePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }

@@ -1,21 +1,34 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src",
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react-jsx"
+  "compilerOptions": {
+    // --- تنظیمات مورد نیاز برای کامپوزیت ---
+    "composite": true, // <-- این خط اضافه شده است
+    "outDir": "./dist/app", // <-- پوشه خروجی مخصوص اپلیکیشن
+    "rootDir": "./src", // <-- ریشه سورس فایل‌های اپلیکیشن
+
+    // --- تنظیماتی که از tsconfig.json اصلی گرفته شده‌اند ---
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
     },
-    "include": ["src"]
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"], // <-- شامل تمام فایل‌های داخل پوشه src
+  "exclude": ["node_modules", "dist"] // <-- پوشه خروجی و node_modules را مستثنی کنید
 }
+ 
