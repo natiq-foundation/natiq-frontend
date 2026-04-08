@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useBeforeInstallPrompt } from "@/hooks/useBeforeInstallPrompt"
-import { isPWA, isAndroid, isIOS, } from "@/lib/isPWA"
+import { isPWA, isAndroid, isIOS } from "@/lib/isPWA"
 
 const LS_ANDROID_KEY = "androidInstallPromptDismissed"
 
@@ -10,10 +10,8 @@ export default function InstallPrompt() {
 
   useEffect(() => {
     if (typeof window === "undefined") return
-    if (isPWA()) return // اگر نصب شده، هیچ UI نشان نده
     const dismissed = localStorage.getItem(LS_ANDROID_KEY) === "true"
 
-    // فقط اندروید + وقتی event رسیده
     if (!dismissed && isAndroid() && canInstall) {
       setShowAndroidCard(true)
     }
@@ -21,17 +19,11 @@ export default function InstallPrompt() {
 
   if (isPWA()) return null
 
-  // iOS راهنمای مستقل دارد (IOSGuide را جدا اضافه می‌کنیم)
-  // اینجا فقط کارت اندروید را هندل می‌کنیم
   if (!showAndroidCard || isIOS()) return null
 
   const onInstall = async () => {
     const result = await triggerInstall()
-    // نتیجه ممکن است accepted یا dismissed باشد
-    // اگر accepted بود، صفحه خودکار بسته می‌شود
-    // اگر dismissed شد، می‌توانید دوباره بعداً نشان بدهید
     if (result.started) {
-      // به‌هرحال کارت را می‌بندیم
       setShowAndroidCard(false)
       localStorage.setItem(LS_ANDROID_KEY, "true")
     }
@@ -50,9 +42,9 @@ export default function InstallPrompt() {
             <span className="text-primary text-xl">⇩</span>
           </div>
           <div className="flex-1">
-            <h3 className="text-title-medium text-on-surface mb-1">نصب اپلیکیشن</h3>
+            <h3 className="text-title-medium text-on-surface mb-1">Install App</h3>
             <p className="text-body-medium text-on-surface-variant">
-              برای تجربه سریع‌تر و تمام‌صفحه، اپلیکیشن را روی دستگاه نصب کنید.
+              Install the app on your device for a faster, full‑screen experience.
             </p>
           </div>
         </div>
@@ -62,16 +54,17 @@ export default function InstallPrompt() {
             className="h-10 px-4 rounded-full text-label-large text-primary hover:bg-primary/10"
             onClick={dismiss}
           >
-            بعداً
+            Later
           </button>
           <button
             className="h-10 px-4 rounded-full bg-primary text-on-primary text-label-large hover:brightness-[0.95]"
             onClick={onInstall}
           >
-            نصب
+            Install
           </button>
         </div>
       </div>
     </div>
   )
 }
+
