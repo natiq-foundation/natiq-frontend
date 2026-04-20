@@ -1,37 +1,38 @@
 import { useEffect, useState } from "react"
 import { useBeforeInstallPrompt } from "@/hooks/useBeforeInstallPrompt"
 import { isPWA, isAndroid, isIOS } from "@/lib/isPWA"
-
-const LS_ANDROID_KEY = "androidInstallPromptDismissed"
+import { usePWAInstall } from "@/context/PWAInstallContext"
 
 export default function InstallPrompt() {
+
   const { canInstall, triggerInstall } = useBeforeInstallPrompt()
   const [showAndroidCard, setShowAndroidCard] = useState(false)
 
+  const [state, setState] = usePWAInstall()
+
   useEffect(() => {
     if (typeof window === "undefined") return
-    const dismissed = localStorage.getItem(LS_ANDROID_KEY) === "true"
 
-    if (!dismissed && isAndroid() && canInstall) {
+    if (!state.seen && isAndroid() && canInstall) {
       setShowAndroidCard(true)
     }
-  }, [canInstall])
+  }, [canInstall, state.seen])
 
   if (isPWA()) return null
-
+  if (state.seen) return null
   if (!showAndroidCard || isIOS()) return null
 
   const onInstall = async () => {
     const result = await triggerInstall()
     if (result.started) {
       setShowAndroidCard(false)
-      localStorage.setItem(LS_ANDROID_KEY, "true")
+      setState({ seen: true })
     }
   }
 
   const dismiss = () => {
     setShowAndroidCard(false)
-    localStorage.setItem(LS_ANDROID_KEY, "true")
+    setState({ seen: true })
   }
 
   return (
@@ -42,9 +43,11 @@ export default function InstallPrompt() {
             <span className="text-primary text-xl">⇩</span>
           </div>
           <div className="flex-1">
-            <h3 className="text-title-medium text-on-surface mb-1">Install App</h3>
+            <h3 className="text-title-medium text-on-surface mb-1">
+              Install the App
+            </h3>
             <p className="text-body-medium text-on-surface-variant">
-              Install the app on your device for a faster, full‑screen experience.
+              For a faster, full‑screen experience, install the app on your device.
             </p>
           </div>
         </div>
@@ -67,4 +70,3 @@ export default function InstallPrompt() {
     </div>
   )
 }
-

@@ -1,17 +1,21 @@
-import {AppBar} from "./AppBar"
-import {IntroSection} from "./IntroSection"
-import AppsSection from "@/assets/icons/AppsSection"
+import { AppBar } from "./AppBar"
+import { IntroSection } from "./IntroSection"
+import AppsSection from "@/routes/intro/AppsSection"
 import Footer from "./Footer"
 
 export default function IntroPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
 
       <AppBar />
-      <IntroSection />
-      <AppsSection />
-      <Footer/>
 
-    </main>
+      <div className="flex-1">
+        <IntroSection />
+        <AppsSection />
+      </div>
+
+      <Footer />
+
+    </div>
   )
 }

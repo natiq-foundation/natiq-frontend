@@ -1,11 +1,16 @@
 import { isPWA } from "./isPWA"
 
+const apps = {
+  quran: import.meta.env.VITE_APP_QURAN,
+  blog: import.meta.env.VITE_APP_BLOG,
+  sponsor: import.meta.env.VITE_APP_SPONSOR,
+  dev: import.meta.env.VITE_APP_DEV,
+} as const
 
+export function openApp(app: keyof typeof apps) {
+  const url = apps[app]
 
-const base = import.meta.env.VITE_BASE_DOMAIN
-
-export function openApp(subdomain: string) {
-  const url = `https://${subdomain}.${base}`
+  if (!url) return
 
   if (isPWA()) {
     window.location.href = `/iframe?src=${url}`
@@ -13,4 +18,3 @@ export function openApp(subdomain: string) {
     window.open(url, "_blank")
   }
 }
-

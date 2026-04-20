@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react"
 import { isIOS, isPWA, isSafari } from "@/lib/isPWA"
-
-const LS_KEY = "iosInstallGuideDismissed"
+import { usePWAInstall } from "@/context/PWAInstallContext"
 
 export default function IOSGuide() {
+
   const [visible, setVisible] = useState(false)
+  const [state, setState] = usePWAInstall()
 
   useEffect(() => {
     if (typeof window === "undefined") return
-    const dismissed = localStorage.getItem(LS_KEY) === "true"
-    if (!dismissed && isIOS() && isSafari() && !isPWA()) {
+
+    if (!state.seen && isIOS() && isSafari() && !isPWA()) {
       setVisible(true)
     }
-  }, [])
+  }, [state.seen])
 
   if (!visible) return null
+  if (state.seen) return null
 
   const dismiss = () => {
-    localStorage.setItem(LS_KEY, "true")
+    setState({ seen: true })
     setVisible(false)
   }
 
@@ -28,16 +30,25 @@ export default function IOSGuide() {
           <div className="shrink-0 w-10 h-10 rounded-full bg-primary/20 grid place-items-center">
             <span className="text-primary text-xl">★</span>
           </div>
+
           <div className="flex-1">
-            <h2 className="text-title-large text-on-surface mb-1">Install the app</h2>
+            <h2 className="text-title-large text-on-surface mb-1">
+              Install the app
+            </h2>
+
             <p className="text-body-medium text-on-surface-variant">
               To install on iPhone/iPad, in Safari tap the Share button and choose
               <b> Add to Home Screen</b>.
             </p>
 
             <div className="mt-4 flex items-center gap-2 rounded-2xl bg-surface-container p-3">
-              <div className="w-6 h-6 rounded bg-primary grid place-items-center text-on-primary text-[12px]">↑</div>
-              <span className="text-body-small text-on-surface-variant">Share → Add to Home Screen</span>
+              <div className="w-6 h-6 rounded bg-primary grid place-items-center text-on-primary text-[12px]">
+                ↑
+              </div>
+
+              <span className="text-body-small text-on-surface-variant">
+                Share → Add to Home Screen
+              </span>
             </div>
           </div>
         </div>

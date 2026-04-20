@@ -1,57 +1,29 @@
 import { Button } from "@/components/ui/button"
+import { openApp } from "@/lib/appLink"
 
 export default function AppFooter() {
   return (
-    <footer className="mt-24 px-6">
-      <div
-        className="
-        mx-auto
-        max-w-7xl
-        rounded-t-[28px]
-        px-8
-        py-6
-        bg-surface-container
-        elevation-1
-      "
-      >
-        <div
-          className="
-          grid
-          grid-cols-3
-          items-center
-          text-sm
-          text-muted-foreground
-        "
-        >
+    <footer className="px-6">
+      <div className="mx-auto max-w-7xl rounded-t-[28px] px-8 py-6 bg-surface-container elevation-1">
+        <div className="flex flex-col-reverse md:grid md:grid-cols-3 items-center text-sm text-muted-foreground gap-4">
+
           <div className="flex justify-start">
             <Button variant="ghost" className="px-0" asChild>
-              <a href="/privacy">Privacy Policy</a>
+              <a href="https://blog.natiq.net/privacypolicy" target="_blank">Privacy Policy</a>
             </Button>
           </div>
 
           <div />
 
-          <div className="flex justify-end gap-4">
-            <Button variant="ghost" className="px-0" asChild>
-              <a
-                href="https://github.com/your-repo"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-            </Button>
-
-            <Button variant="ghost" className="px-0" asChild>
-              <a href="/sponsor">Sponsor</a>
-            </Button>
-
-            <Button variant="ghost" className="px-0" asChild>
-              <a href="/blog">Blog</a>
-            </Button>
+          <div className="flex flex-col md:flex-row justify-end gap-3 md:gap-4">
+            <Button variant="ghost" className="px-0" onClick={() => openApp("dev")}>DevTools</Button>
+            <Button variant="ghost" className="px-0" onClick={() => openApp("sponsor")}>Sponsor</Button>
+            <Button variant="ghost" className="px-0" onClick={() => openApp("blog")}>Blog</Button>
           </div>
+
         </div>
       </div>
     </footer>
   )
 }
+

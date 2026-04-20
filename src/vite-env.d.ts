@@ -1,5 +1,7 @@
 ///  <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/client" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
 
 declare module "*.svg?react" {
   import * as React from "react";
