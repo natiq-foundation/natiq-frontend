@@ -29,12 +29,8 @@ export default defineConfig({
       manifest: {
         name: "Natiq",
         short_name: "Natiq",
-        description: "Natiq Quran Platform",
+        description: "Natiq Foundation",
 
-        theme_color: "#ffffff",
-        background_color: "#ffffff",
-
-        display: "standalone",
         scope: "/",
         start_url: "/launcher",
 

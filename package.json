@@ -15,6 +15,7 @@
     "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
+    "@yakad/lib": "^1.0.23",
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
     "framer-motion": "^12.38.0",
@@ -32,7 +33,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-react": "^5.1.1",

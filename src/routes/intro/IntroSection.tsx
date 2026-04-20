@@ -1,5 +1,6 @@
 import { openApp } from "@/lib/appLink"
 import VerseTicker from "./RandomVerse"
+import LogoIcon from "/public/logoicon.svg?react"
 
 export function IntroSection() {
   return (
@@ -16,6 +17,19 @@ export function IntroSection() {
         gap-16
       "
       >
+        {/* logo */}
+        <div className="flex-1 flex justify-center">
+          <div
+            className="
+            w-48 h-48
+            flex items-center justify-center
+            rounded-full
+            bg-primary/10
+          "
+          >
+            <LogoIcon className="w-40 h-40 text-foreground" />
+          </div>
+        </div>
         {/* text side */}
         <div className="flex-1 flex flex-col items-center text-center gap-6">
           <h1 className="font-[Amiri] text-5xl leading-tight">
@@ -28,8 +42,8 @@ export function IntroSection() {
 
           <VerseTicker />
           <button
-           onClick={() => openApp("quran")}
-  className="
+            onClick={() => openApp("quran")}
+            className="
   mt-4
   px-8 py-3
   rounded-full
@@ -44,28 +58,11 @@ export function IntroSection() {
   active:scale-[0.98]
   transition
   "
->
-  Start Now
-</button>
+          >
+            Open App
+          </button>
         </div>
 
-        {/* logo */}
-        <div className="flex-1 flex justify-center">
-          <div
-            className="
-            w-48 h-48
-            flex items-center justify-center
-            rounded-full
-            bg-primary/10
-          "
-          >
-            <img
-              src="/logoicon.svg"
-              className="w-32 h-32"
-              alt="logo"
-            />
-          </div>
-        </div>
       </div>
     </section>
   )

@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    // --- تنظیمات مورد نیاز برای کامپوزیت ---
-    "composite": true, // <-- این خط اضافه شده است
-    "outDir": "./dist/app", // <-- پوشه خروجی مخصوص اپلیکیشن
-    "rootDir": "./src", // <-- ریشه سورس فایل‌های اپلیکیشن
+    "composite": true,
+    "outDir": "./dist/app", 
+    "rootDir": "./src", 
 
-    // --- تنظیماتی که از tsconfig.json اصلی گرفته شده‌اند ---
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -24,11 +22,12 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "jsx": "react-jsx",
+    "types": ["react", "react-dom"],
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*"], // <-- شامل تمام فایل‌های داخل پوشه src
-  "exclude": ["node_modules", "dist"] // <-- پوشه خروجی و node_modules را مستثنی کنید
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"] 
 }
  

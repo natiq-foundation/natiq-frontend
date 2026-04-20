@@ -1,75 +1,99 @@
-import { Globe, Moon, Sun, Settings, RotateCcw } from "lucide-react"
+import {
+  Globe,
+  Moon,
+  Sun,
+  RotateCcw,
+  ChevronLeft,
+} from "lucide-react"
+import { useState } from "react"
+import { useSettings } from "@/context/settingsContext"
 import { resetPWA } from "@/lib/resetPWA"
-import { useState, useEffect } from "react"
 
 type Props = {
-  open: boolean
-  toggle: () => void
+  dark: boolean
+  onToggleDark: () => void
 }
 
-export function SettingsDropdown({ open, toggle }: Props) {
-  const [dark, setDark] = useState(false)
+export function SettingsDropdown({ dark, onToggleDark }: Props) {
+  const [showLangMenu, setShowLangMenu] = useState(false)
+  const [settings, setSettings] = useSettings()
 
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"))
-  }, [])
-
-  const toggleDark = () => {
-    const root = document.documentElement
-
-    if (root.classList.contains("dark")) {
-      root.classList.remove("dark")
-      setDark(false)
-    } else {
-      root.classList.add("dark")
-      setDark(true)
-    }
+  const changeLanguage = (code: string) => {
+    setSettings({ ...settings, language: code as any })
+    setShowLangMenu(false)
   }
 
   return (
-    <div className="relative">
-      <button
-        onClick={toggle}
-        className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition"
-      >
-        <Settings size={20} />
-      </button>
-
-      {open && (
-        <div
-          className="
-          absolute right-0 mt-3
-          w-48 p-2
-          rounded-3xl
-          bg-surface-container-high
-          elevation-3
-          flex flex-col gap-1
-        "
-        >
-
+    <>
+      {!showLangMenu && (
+        <>
           <button
             onClick={resetPWA}
-            className="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-surface-container-highest text-sm text-red-500"
+            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high text-red-500"
           >
             <RotateCcw size={18} />
             Reset App
           </button>
 
-          <button className="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-surface-container-highest text-sm">
+          <button
+            onClick={() => setShowLangMenu(true)}
+            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
+          >
             <Globe size={18} />
             Language
           </button>
 
           <button
-            onClick={toggleDark}
-            className="flex items-center gap-3 px-3 py-2 rounded-full hover:bg-surface-container-highest text-sm"
+            onClick={onToggleDark}
+            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
           >
             {dark ? <Sun size={18} /> : <Moon size={18} />}
-            Dark Mode
+            {dark ? "Light Mode" : "Dark Mode"}
+          </button>
+        </>
+      )}
+
+      {showLangMenu && (
+        <>
+          <button
+            onClick={() => setShowLangMenu(false)}
+            className="flex items-center gap-2 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
+          >
+            <ChevronLeft size={18} />
+            Back
           </button>
 
-        </div>
+          <button
+            onClick={() => changeLanguage("en")}
+            className={`
+              px-3 py-2 rounded-full text-sm hover:bg-surface-container-high
+              ${settings.language === "en" ? "text-primary font-semibold" : ""}
+            `}
+          >
+            English
+          </button>
+
+          <button
+            onClick={() => changeLanguage("ar")}
+            className={`
+              px-3 py-2 rounded-full text-sm hover:bg-surface-container-high
+              ${settings.language === "ar" ? "text-primary font-semibold" : ""}
+            `}
+          >
+            العربية
+          </button>
+
+          <button
+            onClick={() => changeLanguage("fa")}
+            className={`
+              px-3 py-2 rounded-full text-sm hover:bg-surface-container-high
+              ${settings.language === "fa" ? "text-primary font-semibold" : ""}
+            `}
+          >
+            فارسی
+          </button>
+        </>
       )}
-    </div>
+    </>
   )
 }

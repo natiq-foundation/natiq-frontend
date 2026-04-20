@@ -5,21 +5,23 @@ import InstallPrompt from "@/lib/InstallPrompt"
 import IOSGuide from "@/routes/launcher/IOSGuide"
 import OnlineStatus from "@/modules/OnlineStatus"
 
+import { SettingsProvider } from "./context/settingsContext"
+import { PWAInstallProvider } from "./context/PWAInstallContext"
 
 export default function App() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-      <div className="min-h-screen bg-background text-foreground">
+    <SettingsProvider>
+      <PWAInstallProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <div className="bg-background text-foreground">
+            <Router />
 
-        <Router />
-
-        {/* PWA install UI */}
-        <IOSGuide />
-        <InstallPrompt />
-        <OnlineStatus />
-
-
-      </div>
-    </ThemeProvider>
+            <IOSGuide />
+            <InstallPrompt />
+            <OnlineStatus />
+          </div>
+        </ThemeProvider>
+      </PWAInstallProvider>
+    </SettingsProvider>
   )
 }
