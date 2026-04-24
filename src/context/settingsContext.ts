@@ -3,9 +3,8 @@
 import { createLocalStorageContext, LangCodeType } from "@yakad/lib";
 
 export interface Settings {
-    themeMode: "system" |"dark" | "light";
-    language: "system" |  LangCodeType;
-
+    themeMode: "system" | "dark" | "light";
+    language: "system" | LangCodeType;
 }
 
 const defaultSettings: Settings = {
@@ -13,10 +12,16 @@ const defaultSettings: Settings = {
     language: "system",
 };
 
-const [SettingsProvider, useSettings] =
-    createLocalStorageContext<Settings>(
-        "settings",
-        defaultSettings
-    );
+export const [SettingsProvider, useSettings] =
+    createLocalStorageContext<Settings>("settings", defaultSettings);
 
-export { SettingsProvider, useSettings };
+export interface PWAInstallState {
+    seen: boolean;
+}
+
+const defaultPWAInstallState: PWAInstallState = {
+    seen: false,
+};
+
+export const [PWAInstallProvider, usePWAInstall] =
+    createLocalStorageContext<PWAInstallState>("pwa-install", defaultPWAInstallState);

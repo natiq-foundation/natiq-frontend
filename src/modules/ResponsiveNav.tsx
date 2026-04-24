@@ -1,22 +1,28 @@
 import { ReactNode } from "react"
 
 type ItemProps = {
-  icon: ReactNode
-  label: string
-  onClick?: () => void
-}
+  icon: ReactNode;
+  label: string;
+  onClick?: () => void;
+  active?: boolean;
+};
 
-export function NavItem({ icon, label, onClick }: ItemProps) {
+
+export function NavItem({ icon, label, onClick, active }: ItemProps) {
   return (
     <button
       onClick={onClick}
-      className="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition"
+      className={`
+        flex flex-col items-center justify-center gap-1 transition
+        ${active ? "text-primary" : "text-on-surface-variant"}
+      `}
     >
       <div className="text-xl">{icon}</div>
       <span className="text-xs">{label}</span>
     </button>
-  )
+  );
 }
+
 
 type ResponsiveMenuProps = {
   children: ReactNode

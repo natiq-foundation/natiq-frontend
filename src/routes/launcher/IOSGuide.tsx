@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { isIOS, isPWA, isSafari } from "@/lib/isPWA"
-import { usePWAInstall } from "@/context/PWAInstallContext"
+import { isIOS, isPWA, isSafari, pwaInstallPopupEnabled } from "@/lib/isPWA"
+import { usePWAInstall } from "@/context/settingsContext"
+
 
 export default function IOSGuide() {
 
@@ -16,6 +17,7 @@ export default function IOSGuide() {
   }, [state.seen])
 
   if (!visible) return null
+  if (!pwaInstallPopupEnabled()) return null
   if (state.seen) return null
 
   const dismiss = () => {

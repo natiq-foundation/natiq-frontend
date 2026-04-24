@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { useBeforeInstallPrompt } from "@/hooks/useBeforeInstallPrompt"
 import { isPWA, isAndroid, isIOS } from "@/lib/isPWA"
-import { usePWAInstall } from "@/context/PWAInstallContext"
+import { usePWAInstall } from "@/context/settingsContext"
+import { pwaInstallPopupEnabled } from "@/lib/isPWA"
+
 
 export default function InstallPrompt() {
 
@@ -13,12 +15,15 @@ export default function InstallPrompt() {
   useEffect(() => {
     if (typeof window === "undefined") return
 
+
+
     if (!state.seen && isAndroid() && canInstall) {
       setShowAndroidCard(true)
     }
   }, [canInstall, state.seen])
 
   if (isPWA()) return null
+  if (!pwaInstallPopupEnabled()) return null
   if (state.seen) return null
   if (!showAndroidCard || isIOS()) return null
 
