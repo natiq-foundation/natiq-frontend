@@ -1,5 +1,7 @@
 import { X, Newspaper, Heart, Wrench } from "lucide-react"
 import { openApp } from "@/lib/appLink"
+import { useTranslation } from "react-i18next"
+import { useEffect, useState } from "react"
 
 type SideDrawerProps = {
   open: boolean
@@ -9,10 +11,23 @@ type SideDrawerProps = {
 type AppSubdomain = "blog" | "sponsor" | "dev"
 
 export function SideDrawer({ open, onClose }: SideDrawerProps) {
+
+  const { t, i18n } = useTranslation()
+
+  const isRTL = i18n.language === "fa" || i18n.language === "ar"
+
+  const [drawerRTL, setDrawerRTL] = useState(isRTL)
+
+  useEffect(() => {
+    if (!open) {
+      setDrawerRTL(isRTL)
+    }
+  }, [open, isRTL])
+
   const items: { icon: React.ReactNode; label: string; subdomain: AppSubdomain }[] = [
-    { icon: <Newspaper size={20} />, label: "Blog", subdomain: "blog" },
-    { icon: <Heart size={20} />, label: "Sponsor", subdomain: "sponsor" },
-    { icon: <Wrench size={20} />, label: "Dev Tools", subdomain: "dev" },
+    { icon: <Newspaper size={20} />, label: t("drawer.blog"), subdomain: "blog" },
+    { icon: <Heart size={20} />, label: t("drawer.sponsor"), subdomain: "sponsor" },
+    { icon: <Wrench size={20} />, label: t("drawer.devTools"), subdomain: "dev" },
   ]
 
   return (
@@ -26,18 +41,31 @@ export function SideDrawer({ open, onClose }: SideDrawerProps) {
 
       <aside
         className={`
-          fixed top-0 left-0 h-full w-[280px]
-          bg-surface-container
-          rounded-r-3xl
-          elevation-3
-          z-50
-          p-6
-          transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"}
-        `}
+    fixed top-0
+    ${drawerRTL ? "right-0" : "left-0"}
+    h-full w-[280px]
+    safari-fullscreen
+    bg-surface-container
+    ${drawerRTL ? "rounded-l-3xl" : "rounded-r-3xl"}
+    elevation-3
+    z-50
+    p-6
+    ios-drawer-fix
+    transition-transform duration-300
+    ${open
+            ? "translate-x-0"
+            : drawerRTL
+              ? "translate-x-full"
+              : "-translate-x-full"
+          }
+  `}
       >
+
+
         <div className="flex items-center justify-between mb-6">
-          <span className="font-medium text-lg">Menu</span>
+          <span className="font-medium text-lg">
+            {t("drawer.menu")}
+          </span>
 
           <button
             onClick={onClose}

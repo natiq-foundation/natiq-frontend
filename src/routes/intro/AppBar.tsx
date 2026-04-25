@@ -4,7 +4,6 @@ import {
   Grid3X3,
   Settings as SettingsIcon,
 } from "lucide-react"
-
 import { DropdownButton } from "./DropdownButton"
 import AppsList from "@/modules/AppCardGrid"
 import { SideDrawer } from "./SideDrawer"
@@ -18,11 +17,13 @@ export function AppBar({ hideApps }: Props) {
   const [appsOpen, setAppsOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
 
+
   useEffect(() => {
     const closeOnScroll = () => {
       setAppsOpen(false)
       setSettingsOpen(false)
     }
+
 
     window.addEventListener("scroll", closeOnScroll)
     return () => window.removeEventListener("scroll", closeOnScroll)
