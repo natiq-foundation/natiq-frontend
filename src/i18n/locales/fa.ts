@@ -1,4 +1,8 @@
 export default {
+    appBar: {
+        title: "ناطق",
+    },
+
     common: {
         language: "زبان",
         resetApp: "ریست برنامه",

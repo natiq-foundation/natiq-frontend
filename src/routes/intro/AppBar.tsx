@@ -8,22 +8,22 @@ import { DropdownButton } from "./DropdownButton"
 import AppsList from "@/modules/AppCardGrid"
 import { SideDrawer } from "./SideDrawer"
 import { SettingsDropdown } from "./SettingsDropdown"
+import { useTranslation } from "react-i18next"
 
 type Props = { hideApps?: boolean }
 
 export function AppBar({ hideApps }: Props) {
+  const { t } = useTranslation()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [appsOpen, setAppsOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
-
 
   useEffect(() => {
     const closeOnScroll = () => {
       setAppsOpen(false)
       setSettingsOpen(false)
     }
-
 
     window.addEventListener("scroll", closeOnScroll)
     return () => window.removeEventListener("scroll", closeOnScroll)
@@ -39,9 +39,9 @@ export function AppBar({ hideApps }: Props) {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-30 flex justify-center px-4 pt-4">
-
         <div className="w-full max-w-6xl h-16 px-4 flex items-center justify-between rounded-2xl bg-surface-container elevation-3">
 
+          {/* Left section */}
           <div className="flex items-center">
             <button
               onClick={() => setDrawerOpen(true)}
@@ -51,10 +51,11 @@ export function AppBar({ hideApps }: Props) {
             </button>
 
             <span className="ml-3 font-medium text-sm tracking-wide">
-              Natiq
+              {t("appBar.title")}
             </span>
           </div>
 
+          {/* Right section */}
           <div className="flex items-center gap-1">
 
             {!hideApps && (

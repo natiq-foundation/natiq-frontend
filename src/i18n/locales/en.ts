@@ -1,4 +1,8 @@
 export default {
+    appBar: {
+        title: "Natiq",
+    },
+
     common: {
         language: "Language",
         resetApp: "Reset App",

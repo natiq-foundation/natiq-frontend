@@ -1,4 +1,8 @@
 export default {
+    appBar: {
+        title: "Natiq",
+    },
+
     common: {
         language: "Dil",
         resetApp: "Proqramı sıfırla",
