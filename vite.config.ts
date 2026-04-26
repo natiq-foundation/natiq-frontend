@@ -32,7 +32,7 @@ export default defineConfig({
         description: "Natiq Foundation",
 
         scope: "/",
-        start_url: "/launcher?src=pwa_install",
+        start_url: "/?src=pwa_install",
 
         icons: [
           {
