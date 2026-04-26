@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useRef } from "react"
+import { useTranslation } from "react-i18next"
 
 type Props = {
   open: boolean
@@ -17,8 +18,12 @@ export function DropdownButton({
   width = "w-56",
   children,
 }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
 
+  const ref = useRef<HTMLDivElement>(null)
+  const { i18n } = useTranslation()
+  const isRTL = i18n.dir() === "rtl"
+
+  // close dropdown when clicking outside
   useEffect(() => {
     if (!open) return
     const handler = (e: MouseEvent) => {
@@ -27,6 +32,11 @@ export function DropdownButton({
     document.addEventListener("mousedown", handler)
     return () => document.removeEventListener("mousedown", handler)
   }, [open, close])
+
+  // close dropdown when language changes
+  useEffect(() => {
+    if (open) close()
+  }, [i18n.language])
 
   return (
     <div className="relative" ref={ref}>
@@ -40,7 +50,8 @@ export function DropdownButton({
       {open && (
         <div
           className={`
-            absolute right-0 mt-3 z-50
+            absolute ${isRTL ? "left-0" : "right-0"}
+            mt-3 z-50
             ${width}
             p-3
             rounded-3xl

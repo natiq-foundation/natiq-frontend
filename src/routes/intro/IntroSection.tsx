@@ -1,8 +1,13 @@
 import { openApp } from "@/lib/appLink"
 import VerseTicker from "./RandomVerse"
 import LogoIcon from "/public/logoicon.svg?react"
+import { useTranslation } from "react-i18next"
+import { Button } from "@/components/ui/button"
 
 export function IntroSection() {
+
+  const { t } = useTranslation()
+
   return (
     <section className="px-6 pt-32 flex justify-center">
       <div
@@ -30,6 +35,7 @@ export function IntroSection() {
             <LogoIcon className="w-40 h-40 text-foreground" />
           </div>
         </div>
+
         {/* text side */}
         <div className="flex-1 flex flex-col items-center text-center gap-6">
           <h1 className="font-[Amiri] text-5xl leading-tight">
@@ -41,26 +47,12 @@ export function IntroSection() {
           </p>
 
           <VerseTicker />
-          <button
+
+          <Button
             onClick={() => openApp("quran")}
-            className="
-  mt-4
-  px-8 py-3
-  rounded-full
-  bg-primary
-  text-white
-  text-sm
-  font-medium
-  tracking-wide
-  shadow-md
-  hover:shadow-lg
-  hover:brightness-110
-  active:scale-[0.98]
-  transition
-  "
           >
-            Open App
-          </button>
+            {t("intro.openApp")}
+          </Button>
         </div>
 
       </div>

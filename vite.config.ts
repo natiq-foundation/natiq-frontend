@@ -21,7 +21,7 @@ export default defineConfig({
       registerType: "autoUpdate",
 
       includeAssets: [
-        "favicon.svg",
+        "favicon.ico",
         "apple-touch-icon.png",
         "masked-icon.svg"
       ],
@@ -32,7 +32,7 @@ export default defineConfig({
         description: "Natiq Foundation",
 
         scope: "/",
-        start_url: "/launcher",
+        start_url: "/?src=pwa_install",
 
         icons: [
           {

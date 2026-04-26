@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { isIOS, isPWA, isSafari } from "@/lib/isPWA"
-import { usePWAInstall } from "@/context/PWAInstallContext"
+import { isIOS, isPWA, isSafari, pwaInstallPopupEnabled } from "@/lib/isPWA"
+import { useSettings } from "@/context/settingsContext"
 
 export default function IOSGuide() {
-
   const [visible, setVisible] = useState(false)
-  const [state, setState] = usePWAInstall()
+
+  // useSettings مثل useState کار می‌کند:
+  const [settings, setSettings] = useSettings()
+  const state = settings.pwaInstallPopup
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -16,10 +18,15 @@ export default function IOSGuide() {
   }, [state.seen])
 
   if (!visible) return null
+  if (!pwaInstallPopupEnabled()) return null
   if (state.seen) return null
 
   const dismiss = () => {
-    setState({ seen: true })
+    // فقط seen را true می‌کنیم، بقیه تنظیمات را دست نمی‌زنیم
+    setSettings(prev => ({
+      ...prev,
+      pwaInstallPopup: { ...prev.pwaInstallPopup, seen: true },
+    }))
     setVisible(false)
   }
 

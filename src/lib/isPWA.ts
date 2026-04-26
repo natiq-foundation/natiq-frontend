@@ -1,25 +1,17 @@
-export function pwaEnabled() {
-  return import.meta.env.VITE_ENABLE_PWA === "true"
-}
-
 export function isStandaloneDisplayMode() {
-  if (!pwaEnabled()) return false
   return window.matchMedia("(display-mode: standalone)").matches
 }
 
 export function isIOSStandalone() {
-  if (!pwaEnabled()) return false
-  return (window.navigator as any).standalone === true
+  return "standalone" in window.navigator && (window.navigator as any).standalone === true
 }
 
 export function isAndroidTWAReferrer() {
-  if (!pwaEnabled()) return false
-  return document.referrer?.startsWith("android-app://")
+  return document.referrer.includes("android-app://")
 }
 
 export function isPWA() {
   if (typeof window === "undefined") return false
-  if (!pwaEnabled()) return false
 
   return (
     isStandaloneDisplayMode() ||
@@ -28,19 +20,15 @@ export function isPWA() {
   )
 }
 
-export function isIOS() {
-  if (typeof window === "undefined") return false
-  return /iphone|ipad|ipod/i.test(window.navigator.userAgent)
+export function pwaInstallPopupEnabled() {
+  return import.meta.env.VITE_ENABLE_PWA_INSTALL_POPUP === "true"
 }
 
-export function isAndroid() {
-  if (typeof window === "undefined") return false
-  return /android/i.test(window.navigator.userAgent)
-}
+export const isIOS = () =>
+  /iphone|ipad|ipod/i.test(navigator.userAgent)
 
-export function isSafari() {
-  if (typeof window === "undefined") return false
-  const ua = window.navigator.userAgent
-  const isSafari = /^((?!chrome|android).)*safari/i.test(ua)
-  return isSafari
-}
+export const isAndroid = () =>
+  /android/i.test(navigator.userAgent)
+
+export const isSafari = () =>
+  /^((?!chrome|android).)*safari/i.test(navigator.userAgent)

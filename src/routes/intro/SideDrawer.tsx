@@ -1,5 +1,15 @@
-import { X, Newspaper, Heart, Wrench } from "lucide-react"
+import { Newspaper, Heart, Wrench } from "lucide-react"
 import { openApp } from "@/lib/appLink"
+import { useTranslation } from "react-i18next"
+
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle
+} from "@/components/ui/sheet"
+
+import { Button } from "@/components/ui/button"
 
 type SideDrawerProps = {
   open: boolean
@@ -9,57 +19,48 @@ type SideDrawerProps = {
 type AppSubdomain = "blog" | "sponsor" | "dev"
 
 export function SideDrawer({ open, onClose }: SideDrawerProps) {
-  const items: { icon: React.ReactNode; label: string; subdomain: AppSubdomain }[] = [
-    { icon: <Newspaper size={20} />, label: "Blog", subdomain: "blog" },
-    { icon: <Heart size={20} />, label: "Sponsor", subdomain: "sponsor" },
-    { icon: <Wrench size={20} />, label: "Dev Tools", subdomain: "dev" },
-  ]
+
+  const { t, i18n } = useTranslation()
+
+  const isRTL = i18n.language === "fa" || i18n.language === "ar"
+
+  const items: {
+    icon: React.ReactNode
+    label: string
+    subdomain: AppSubdomain
+  }[] = [
+      { icon: <Newspaper size={20} />, label: t("drawer.blog"), subdomain: "blog" },
+      { icon: <Heart size={20} />, label: t("drawer.sponsor"), subdomain: "sponsor" },
+      { icon: <Wrench size={20} />, label: t("drawer.devTools"), subdomain: "dev" },
+    ]
 
   return (
-    <>
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/20 z-40"
-          onClick={onClose}
-        />
-      )}
-
-      <aside
-        className={`
-          fixed top-0 left-0 h-full w-[280px]
-          bg-surface-container
-          rounded-r-3xl
-          elevation-3
-          z-50
-          p-6
-          transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"}
-        `}
+    <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
+      <SheetContent
+        side={isRTL ? "right" : "left"}
+        className="w-[280px] bg-surface-container p-6 border-none"
       >
-        <div className="flex items-center justify-between mb-6">
-          <span className="font-medium text-lg">Menu</span>
-
-          <button
-            onClick={onClose}
-            className="p-2 rounded-full hover:bg-surface-container-high"
-          >
-            <X size={20} />
-          </button>
-        </div>
+        <SheetHeader className="mb-6">
+          <SheetTitle className="text-lg font-medium">
+            {t("drawer.menu")}
+          </SheetTitle>
+        </SheetHeader>
 
         <nav className="flex flex-col gap-2">
           {items.map((item) => (
-            <button
+            <Button
               key={item.label}
+              variant="ghost"
               onClick={() => openApp(item.subdomain)}
-              className="flex items-center gap-4 px-4 py-3 rounded-full hover:bg-surface-container-high transition"
+              className="justify-start gap-4 px-4 py-3 rounded-full"
             >
               {item.icon}
               <span className="text-sm">{item.label}</span>
-            </button>
+            </Button>
           ))}
         </nav>
-      </aside>
-    </>
+
+      </SheetContent>
+    </Sheet>
   )
 }
