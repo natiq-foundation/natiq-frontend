@@ -7,32 +7,27 @@ import OnlineStatus from "@/modules/OnlineStatus"
 
 import { LanguageSync } from "./hooks/languageSync"
 
-
 import {
   SettingsProvider,
-  PWAInstallProvider
 } from "./context/settingsContext"
 
 export default function App() {
   return (
     <SettingsProvider>
-      <PWAInstallProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LanguageSync />
-          <div className="bg-background text-foreground">
-            <Router />
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <LanguageSync />
 
-            {/* PWA prompts */}
-            <IOSGuide />
-            <InstallPrompt />
+        <div className="bg-background text-foreground">
+          <Router />
 
-            {/* Network bar */}
-            <OnlineStatus />
+          {/* PWA prompts */}
+          <IOSGuide />
+          <InstallPrompt />
 
-
-          </div>
-        </ThemeProvider>
-      </PWAInstallProvider>
+          {/* Network bar */}
+          <OnlineStatus />
+        </div>
+      </ThemeProvider>
     </SettingsProvider>
   )
 }

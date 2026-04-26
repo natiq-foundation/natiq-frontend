@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePWAInstall } from "@/context/settingsContext";
+import { useSettings } from "@/context/settingsContext";
 
 import AppCardGrid from "@/modules/AppCardGrid";
 import ResponsiveMenu, { NavItem } from "@/modules/ResponsiveNav";
@@ -11,24 +11,29 @@ import { SettingsDropdown } from "@/routes/intro/SettingsDropdown";
 import { SettingsLink } from "./SettingsLink";
 
 export default function Launcher() {
-
   const [tab, setTab] = useState<"apps" | "settings">("apps");
 
-  const [state, setState] = usePWAInstall();
+  // ✅ جدید
+  const [settings, setSettings] = useSettings();
+  const pwaState = settings.pwaInstallPopup;
 
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search)
+    const p = new URLSearchParams(window.location.search);
 
-    if (p.get("src") === "pwa_install" && !state.seen) {
-      setState({ seen: true })
+    if (p.get("src") === "pwa_install" && !pwaState.seen) {
+      setSettings(prev => ({
+        ...prev,
+        pwaInstallPopup: {
+          ...prev.pwaInstallPopup,
+          seen: true,
+        },
+      }));
     }
-  }, [state.seen, setState])
+  }, [pwaState.seen, setSettings]);
 
   return (
     <div className="min-h-screen flex flex-col bg-surface">
-
       <main className="flex-1 flex flex-col items-center px-4 py-10">
-
         {tab === "apps" && (
           <div className="w-full max-w-xl bg-surface-container rounded-[28px] p-6 elevation-2 mt-10">
             <AppCardGrid />
@@ -37,7 +42,6 @@ export default function Launcher() {
 
         {tab === "settings" && (
           <div className="w-full max-w-xl mt-10 flex flex-col gap-6">
-
             <div className="bg-surface-container p-6 rounded-3xl elevation-2">
               <SettingsDropdown />
             </div>
@@ -62,13 +66,11 @@ export default function Launcher() {
                 href={import.meta.env.VITE_DEV_URL as string}
               />
             </div>
-
           </div>
         )}
       </main>
 
       <ResponsiveMenu open>
-
         <NavItem
           label="Apps"
           icon={<LayoutGrid size={20} />}
@@ -82,9 +84,7 @@ export default function Launcher() {
           active={tab === "settings"}
           onClick={() => setTab("settings")}
         />
-
       </ResponsiveMenu>
-
     </div>
-  )
+  );
 }
