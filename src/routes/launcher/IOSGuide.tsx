@@ -5,7 +5,6 @@ import { useSettings } from "@/context/settingsContext"
 export default function IOSGuide() {
   const [visible, setVisible] = useState(false)
 
-  // useSettings مثل useState کار می‌کند:
   const [settings, setSettings] = useSettings()
   const state = settings.pwaInstallPopup
 
