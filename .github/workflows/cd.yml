@@ -1,4 +1,4 @@
-name: CD
+name: CD Deployment
 
 on:
   push:
@@ -8,14 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Arvan Cloud Storage
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-      AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
-      AWS_DEFAULT_REGION: us-east-1
 
     steps:
       - name: Checkout repository
@@ -33,19 +26,12 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Install AWS CLI
+      - name: Deploy to S3 Cloud Storage
+        env:
+          AWS_ACCESS_KEY_ID: ${{ vars.NATIQ_FRONTEND_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.NATIQ_FRONTEND_AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ vars.NATIQ_FRONTEND_AWS_BUCKET_NAME }}
+          AWS_S3_ENDPOINT_URL: ${{ vars.NATIQ_FRONTEND_AWS_ENDPOINT_URL }}
+          AWS_DEFAULT_REGION: us-east-1
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install awscli
-
-      - name: Clean remote bucket
-        run: |
-          aws s3 rm "s3://$AWS_S3_BUCKET" --recursive --endpoint-url "$AWS_S3_ENDPOINT_URL"
-
-      - name: Upload dist root files
-        run: |
-          aws s3 cp dist "s3://$AWS_S3_BUCKET" --recursive --exclude "assets/*" --endpoint-url "$AWS_S3_ENDPOINT_URL"
-
-      - name: Upload dist/assets folder
-        run: |
-          aws s3 cp dist/assets "s3://$AWS_S3_BUCKET/assets" --recursive --endpoint-url "$AWS_S3_ENDPOINT_URL"
+          aws s3 sync dist/ "s3://${AWS_S3_BUCKET}" --endpoint-url "${AWS_S3_ENDPOINT_URL}" --delete
