@@ -1,0 +1,51 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    name: Deploy to Arvan Cloud Storage
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
+      AWS_DEFAULT_REGION: us-east-1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Install AWS CLI
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install awscli
+
+      - name: Clean remote bucket
+        run: |
+          aws s3 rm "s3://$AWS_S3_BUCKET" --recursive --endpoint-url "$AWS_S3_ENDPOINT_URL"
+
+      - name: Upload dist root files
+        run: |
+          aws s3 cp dist "s3://$AWS_S3_BUCKET" --recursive --exclude "assets/*" --endpoint-url "$AWS_S3_ENDPOINT_URL"
+
+      - name: Upload dist/assets folder
+        run: |
+          aws s3 cp dist/assets "s3://$AWS_S3_BUCKET/assets" --recursive --endpoint-url "$AWS_S3_ENDPOINT_URL"
