@@ -1,21 +1,36 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Intro from "routes/intro";
-import Apps from "routes/apps";
-import Iframe from "routes/iframe";
-import Quran from "routes/quran";
-import NotFound from "not-found";
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+
+import Intro from "@/routes/intro"
+import Launcher from "@/routes/launcher"
+import IframePage from "@/routes/IframePage"
+
+function PWARedirect() {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+
+    if (params.get("src") === "pwa_install") {
+      navigate("/launcher", { replace: true })
+    }
+  }, [location, navigate])
+
+  return null
+}
 
 export default function Router() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route index element={<Intro />} />
-                <Route path="/apps" element={<Apps />} />
-                <Route path="/iframe" element={<Iframe />} />
-                <Route path="/quran" element={<Navigate replace to="/" />} />
-                <Route path="/quran/:id" element={<Quran />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+
+      <PWARedirect />
+
+      <Routes>
+        <Route path="/" element={<Intro />} />
+        <Route path="/launcher" element={<Launcher />} />
+        <Route path="/iframe" element={<IframePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }

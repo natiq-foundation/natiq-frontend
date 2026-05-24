@@ -1,0 +1,20 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 1000"
+  className="w-56 h-56 text-foreground fill-current"
+>
+  <polygon
+    points="928.3,302.36 950,339.94 245.3,746.8 223.6,709.22"
+    fill="currentColor"
+  />
+  
+  <path
+    d="M71.7 302.36l-21.7 37.58 395.78 228.51 43.4 -25.06 -417.48 -241.03zm439.13 303.64l243.87 140.8 21.7 -37.58 -222.18 -128.28 -43.39 25.06z"
+    fill="currentColor"
+  />
+
+  <polygon
+    points="124.16,320.15 172.79,253.2 500,471.39 827.21,253.2 875.84,320.15 500,537.15"
+    fill="currentColor"
+  />
+</svg>
