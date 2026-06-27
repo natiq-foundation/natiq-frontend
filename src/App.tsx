@@ -1,17 +1,33 @@
-import { Theme } from "@yakad/ui";
+import { ThemeProvider } from "@/components/ui/theme-provider"
+import Router from "./router"
 
-import Router from "./router";
-import "./assets/css/style.css";
-import { client } from "@ntq/sdk";
+import InstallPrompt from "@/lib/InstallPrompt"
+import IOSGuide from "@/routes/launcher/IOSGuide"
+import OnlineStatus from "@/modules/OnlineStatus"
 
-client.setConfig({
-    baseURL: process.env.REACT_APP_API_URL || "https://api.natiq.net",
-});
+import { LanguageSync } from "./hooks/languageSync"
+
+import {
+  SettingsProvider,
+} from "./context/settingsContext"
 
 export default function App() {
-    return (
-        <Theme>
-            <Router />
-        </Theme>
-    );
+  return (
+    <SettingsProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <LanguageSync />
+
+        <div className="bg-background text-foreground">
+          <Router />
+
+          {/* PWA prompts */}
+          <IOSGuide />
+          <InstallPrompt />
+
+          {/* Network bar */}
+          <OnlineStatus />
+        </div>
+      </ThemeProvider>
+    </SettingsProvider>
+  )
 }
