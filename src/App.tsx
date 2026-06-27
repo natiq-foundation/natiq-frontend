@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import Router from "./router"
 
-import InstallPrompt from "@/lib/InstallPrompt"
+import InstallPrompt from "@/components/features/installPrompt/InstallPrompt"
 import IOSGuide from "@/routes/launcher/IOSGuide"
-import OnlineStatus from "@/modules/OnlineStatus"
+import OnlineStatus from "@/components/modules/status/OnlineStatus"
 
-import { LanguageSync } from "./hooks/languageSync"
+import { LanguageSync } from "@/components/features//languageSync/LanguageSync"
 
 import {
   SettingsProvider,

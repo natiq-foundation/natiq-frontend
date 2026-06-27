@@ -3,7 +3,7 @@ import { Menu } from "lucide-react"
 import { Material } from "@yakad/symbols"
 
 import { DropdownButton } from "./DropdownButton"
-import AppsList from "@/modules/AppCardGrid"
+import AppsList from "@/components/modules/apps/AppCardGrid"
 import { SideDrawer } from "./SideDrawer"
 import { SettingsDropdown } from "./SettingsDropdown"
 

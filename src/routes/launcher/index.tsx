@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { useSettings } from "@/context/settingsContext";
 
-import ResponsiveMenu, { NavItem } from "@/modules/ResponsiveNav";
+import ResponsiveMenu, { NavItem } from "@/components/modules/nav/ResponsiveNav";
 
 import { SettingsDropdown } from "@/routes/intro/SettingsDropdown";
 import { SettingsLink } from "./SettingsLink";
