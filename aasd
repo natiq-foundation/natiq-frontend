@@ -1,0 +1,29 @@
+* [33mf279b63[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m new update
+* [33m9c8fc2d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m yakad/sync update
+* [33mffaba0a[m new update
+* [33m6255369[m update
+* [33m395d919[m design luncher ui
+* [33m92df6cb[m move pwainstall context to settings and chage name pwa install => pwa install popup
+* [33m850e409[m fix start url
+* [33m483fc41[m fix favico bug
+* [33m1024f48[m new update
+* [33m2543a1a[m new update
+* [33m087cf39[m new update
+*   [33m74fbce2[m Merge branch natiq-frontend:main into main
+[32m|[m[33m\[m  
+[32m|[m *   [33ma88a5a6[m Merge branch 'main' into 'main'
+[32m|[m [34m|[m[35m\[m  
+[32m|[m * [35m\[m   [33m62a76a3[m Merge branch 'main' into 'main'
+[32m|[m [36m|[m[1;31m\[m [35m\[m  
+* [36m|[m [1;31m|[m [35m|[m [33m0cdba91[m new update
+[35m|[m [36m|[m[35m_[m[1;31m|[m[35m/[m  
+[35m|[m[35m/[m[36m|[m [1;31m|[m   
+* [36m|[m [1;31m|[m [33m5af99b7[m new
+[1;31m|[m [36m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[36m|[m   
+* [36m|[m [33mc16a600[m new update
+[36m|[m[36m/[m  
+*   [33md38ccde[m Merge pull request #108 from nyzd/main
+[1;32m|[m[1;33m\[m  
+[1;32m|[m * [33m53d48ee[m Errors fixed
+[1;32m|[m * [33m9801085[m Updated

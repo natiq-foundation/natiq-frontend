@@ -9,9 +9,8 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./src/*"]
     },
     "strict": true,
     "noUnusedLocals": true,
@@ -30,4 +29,3 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"] 
 }
- 
