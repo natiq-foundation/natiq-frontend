@@ -2,8 +2,7 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: ['*']
   pull_request:
 
 jobs:
@@ -21,6 +20,9 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Update npm
+        run: npm install -g npm@latest
+      
       - name: Install dependencies
         run: npm ci
 
