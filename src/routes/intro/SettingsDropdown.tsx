@@ -40,7 +40,7 @@ export function SettingsDropdown() {
     : t("common.darkMode")
 
   return (
-    <>
+    <div className="flex flex-col">
       {!showLangMenu && (
         <>
           <button
@@ -112,6 +112,6 @@ export function SettingsDropdown() {
           </button>
         </>
       )}
-    </>
+    </div>
   )
 }
