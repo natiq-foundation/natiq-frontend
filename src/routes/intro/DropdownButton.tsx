@@ -46,19 +46,24 @@ export function DropdownButton({
       >
         {icon}
       </button>
-
       {open && (
         <div
           className={`
-            absolute ${isRTL ? "left-0" : "right-0"}
-            mt-3 z-50
-            ${width}
-            p-3
-            rounded-3xl
-            bg-surface-container elevation-3
-            animate-[fadeIn_0.15s_ease-out]
-            flex flex-col gap-2
-          `}
+      fixed ${isRTL ? "left-4" : "right-4"}
+      mt-3 z-50
+      ${width}
+      p-3
+      rounded-3xl
+      bg-surface-container elevation-3
+      animate-[fadeIn_0.15s_ease-out]
+      flex flex-col gap-2
+    `}
+          style={{
+            top: ref.current
+              ? ref.current.getBoundingClientRect().bottom + 12
+              : 0,
+            maxWidth: "calc(100vw - 2rem)",
+          }}
         >
           {children}
         </div>
