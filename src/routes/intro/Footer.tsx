@@ -12,7 +12,7 @@ export default function AppFooter() {
         <div className="flex flex-col-reverse md:grid md:grid-cols-3 items-center text-sm text-muted-foreground gap-4">
 
           <div className="flex justify-start">
-            <Button variant="ghost" className="px-0" asChild>
+            <Button variant="link" className="px-0" asChild>
               <a href="https://blog.natiq.net/privacypolicy" target="_blank">
                 {t("footer.privacyPolicy")}
               </a>
@@ -23,7 +23,7 @@ export default function AppFooter() {
 
           <div className="flex flex-col md:flex-row justify-end gap-3 md:gap-4">
             <Button
-              variant="ghost"
+              variant="link"
               className="px-0"
               onClick={() => openApp("dev")}
             >
@@ -31,7 +31,7 @@ export default function AppFooter() {
             </Button>
 
             <Button
-              variant="ghost"
+              variant="link"
               className="px-0"
               onClick={() => openApp("sponsor")}
             >
@@ -39,7 +39,7 @@ export default function AppFooter() {
             </Button>
 
             <Button
-              variant="ghost"
+              variant="link"
               className="px-0"
               onClick={() => openApp("blog")}
             >

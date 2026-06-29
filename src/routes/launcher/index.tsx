@@ -9,10 +9,8 @@ import ResponsiveMenu, { NavItem } from "@/components/modules/nav/ResponsiveNav"
 
 import { SettingsDropdown } from "@/routes/intro/SettingsDropdown";
 import { SettingsLink } from "./SettingsLink";
-import { openApp } from "@/lib/appLink";
 
-import LogoIcon from "/public/logoicon.svg?react";
-import SmallAppCard from "./SmallAppCard";
+import AppsMenu from "@/components/modules/apps/AppsMenu"
 import { Material } from "@yakad/symbols";
 
 
@@ -47,31 +45,7 @@ export default function Launcher() {
               {t("launcher.apps")}
             </h1>
 
-            <button
-              onClick={() => openApp("quran")}
-              className="w-full rounded-[28px] bg-surface-container p-6 elevation-2 flex items-center justify-between hover:elevation-3 transition-all"
-            >
-              <div className="flex flex-col items-start gap-1 text-left">
-                <span className="text-lg font-semibold text-on-surface">
-                  {t("launcher.quran")}
-                </span>
-
-                <span className="text-sm text-on-surface-variant">
-                  {t("launcher.quranDescription")}
-                </span>
-              </div>
-
-              <div className="w-14 h-14 rounded-2xl bg-primary-container flex items-center justify-center">
-                <LogoIcon className="w-8 h-8 text-on-primary-container" />
-              </div>
-            </button>
-
-            <div className="grid grid-cols-2 gap-3">
-              <SmallAppCard />
-              <SmallAppCard />
-              <SmallAppCard />
-              <SmallAppCard />
-            </div>
+            <AppsMenu />
           </div>
         )}
 

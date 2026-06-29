@@ -6,7 +6,12 @@ import { registerSW } from "virtual:pwa-register"
 import "./i18n"
 
 
+document.addEventListener("wheel", (e) => {
+  if (e.ctrlKey) e.preventDefault()
+}, { passive: false })
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
+
   <React.StrictMode>
     <App />
   </React.StrictMode>
@@ -20,4 +25,5 @@ registerSW({
   onOfflineReady() {
     console.log("App ready to work offline")
   },
+
 })

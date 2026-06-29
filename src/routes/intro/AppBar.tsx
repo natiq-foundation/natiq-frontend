@@ -3,7 +3,7 @@ import { Menu } from "lucide-react"
 import { Material } from "@yakad/symbols"
 
 import { DropdownButton } from "./DropdownButton"
-import AppsList from "@/components/modules/apps/AppCardGrid"
+import AppsMenu from "@/components/modules/apps/AppsMenu"
 import { SideDrawer } from "./SideDrawer"
 import { SettingsDropdown } from "./SettingsDropdown"
 
@@ -38,7 +38,7 @@ export function AppBar({ hideApps }: Props) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-30 flex justify-center px-4 pt-4">
+      <header className="fixed top-0 left-0 right-0 z-30 flex justify-center px-4 pt-4 backdrop-blur-md">
         <div className="w-full max-w-6xl h-16 px-4 flex items-center justify-between rounded-2xl bg-surface-container elevation-3">
 
           {/* Left section */}
@@ -75,9 +75,9 @@ export function AppBar({ hideApps }: Props) {
                     opticalSize={24}
                   />
                 }
-                width="w-64"
+                width="w-[26rem] max-w-[calc(100vw-2rem)]"
               >
-                <AppsList small />
+                <AppsMenu />
               </DropdownButton>
             )}
 

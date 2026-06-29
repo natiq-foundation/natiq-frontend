@@ -40,12 +40,12 @@ export function SettingsDropdown() {
     : t("common.darkMode")
 
   return (
-    <>
+    <div className="flex flex-col">
       {!showLangMenu && (
         <>
           <button
             onClick={resetPWA}
-            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high text-red-500"
+            className="w-full  flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high text-red-500"
           >
             <Material icon="restart_alt" size={18} />
             {t("common.resetApp")}
@@ -53,7 +53,7 @@ export function SettingsDropdown() {
 
           <button
             onClick={() => setShowLangMenu(true)}
-            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
+            className="w-full  flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
           >
             <Material icon="language" size={18} />
             {t("common.language")}
@@ -61,7 +61,7 @@ export function SettingsDropdown() {
 
           <button
             onClick={handleTheme}
-            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
+            className="w-full  flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
           >
             <Material icon={themeIcon} size={18} />
             {label}
@@ -112,6 +112,6 @@ export function SettingsDropdown() {
           </button>
         </>
       )}
-    </>
+    </div>
   )
 }

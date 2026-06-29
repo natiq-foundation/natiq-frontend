@@ -36,11 +36,11 @@ export default function AppsSection() {
                 {section.title}
               </h2>
 
-              <p className="mt-4 text-muted-foreground leading-relaxed">
+              <p className="mt-4 text-muted-foreground leading-relaxed text-justify">
                 {section.text1}
               </p>
 
-              <p className="mt-4 text-muted-foreground leading-relaxed">
+              <p className="mt-4 text-muted-foreground leading-relaxed text-justify">
                 {section.text2}
               </p>
             </div>
