@@ -33,6 +33,9 @@ export function DropdownButton({
     return () => document.removeEventListener("mousedown", handler)
   }, [open, close])
 
+
+
+
   // close dropdown when language changes
   useEffect(() => {
     if (open) close()

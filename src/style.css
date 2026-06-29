@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body[data-scroll-locked] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
 
 body {
   background:
@@ -13,8 +17,6 @@ body {
       transparent 40%),
     var(--background);
 }
-
-
 
 :root {
   --background: oklch(0.98 0 0);
