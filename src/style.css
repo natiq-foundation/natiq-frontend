@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 
 body {
   background:
@@ -13,8 +19,6 @@ body {
       transparent 40%),
     var(--background);
 }
-
-
 
 :root {
   --background: oklch(0.98 0 0);

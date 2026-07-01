@@ -40,30 +40,30 @@ export function SettingsDropdown() {
     : t("common.darkMode")
 
   return (
-    <>
+    <div className="flex flex-col">
       {!showLangMenu && (
         <>
           <button
             onClick={resetPWA}
-            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high text-red-500"
+            className="w-full  flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high text-red-500"
           >
-            <Material icon="restart_alt" size={18} />
+            <Material icon="restart_alt" size={24} />
             {t("common.resetApp")}
           </button>
 
           <button
             onClick={() => setShowLangMenu(true)}
-            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
+            className="w-full  flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
           >
-            <Material icon="language" size={18} />
+            <Material icon="language" size={24} />
             {t("common.language")}
           </button>
 
           <button
             onClick={handleTheme}
-            className="flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
+            className="w-full  flex items-center gap-3 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
           >
-            <Material icon={themeIcon} size={18} />
+            <Material icon={themeIcon} size={24} />
             {label}
           </button>
         </>
@@ -75,7 +75,7 @@ export function SettingsDropdown() {
             onClick={() => setShowLangMenu(false)}
             className="flex items-center gap-2 px-3 py-2 rounded-full text-sm hover:bg-surface-container-high"
           >
-            <Material icon="arrow_back" size={18} />
+            <Material icon="arrow_back" size={24} />
             {t("common.back")}
           </button>
 
@@ -112,6 +112,6 @@ export function SettingsDropdown() {
           </button>
         </>
       )}
-    </>
+    </div>
   )
 }

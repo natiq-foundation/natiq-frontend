@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from "react"
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 type Props = {
@@ -18,10 +18,11 @@ export function DropdownButton({
   width = "w-56",
   children,
 }: Props) {
-
   const ref = useRef<HTMLDivElement>(null)
   const { i18n } = useTranslation()
   const isRTL = i18n.dir() === "rtl"
+
+  const [top, setTop] = useState(0)
 
   // close dropdown when clicking outside
   useEffect(() => {
@@ -36,7 +37,28 @@ export function DropdownButton({
   // close dropdown when language changes
   useEffect(() => {
     if (open) close()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language])
+
+  // محاسبه‌ی موقعیت بعد از باز شدن، نه در حین render
+  useLayoutEffect(() => {
+    if (!open || !ref.current) return
+
+    const updatePosition = () => {
+      if (ref.current) {
+        setTop(ref.current.getBoundingClientRect().bottom + 12)
+      }
+    }
+
+    updatePosition()
+
+    window.addEventListener("resize", updatePosition)
+    window.addEventListener("scroll", updatePosition, true)
+    return () => {
+      window.removeEventListener("resize", updatePosition)
+      window.removeEventListener("scroll", updatePosition, true)
+    }
+  }, [open])
 
   return (
     <div className="relative" ref={ref}>
@@ -46,11 +68,10 @@ export function DropdownButton({
       >
         {icon}
       </button>
-
       {open && (
         <div
           className={`
-            absolute ${isRTL ? "left-0" : "right-0"}
+            fixed ${isRTL ? "left-4" : "right-4"}
             mt-3 z-50
             ${width}
             p-3
@@ -59,6 +80,10 @@ export function DropdownButton({
             animate-[fadeIn_0.15s_ease-out]
             flex flex-col gap-2
           `}
+          style={{
+            top,
+            maxWidth: "calc(100vw - 2rem)",
+          }}
         >
           {children}
         </div>

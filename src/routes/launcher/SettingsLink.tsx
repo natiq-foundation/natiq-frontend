@@ -22,9 +22,7 @@ export function SettingsLink({ label, href }: LinkProps) {
                 {label}
             </span>
 
-            <span className="text-primary text-sm">
-                Open →
-            </span>
+
         </a>
     );
 }

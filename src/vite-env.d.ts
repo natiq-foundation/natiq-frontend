@@ -1,13 +1,16 @@
-///  <reference types="vite/client" />
+/// <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/client" />
-/// <reference types="react" />
-/// <reference types="react-dom" />
 
 declare module "*.svg?react" {
-  import * as React from "react";
-  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
-  export default content;
+  import * as React from "react"
+
+  const ReactComponent: React.FC<
+    React.SVGProps<SVGSVGElement>
+  >
+
+  export default ReactComponent
 }
+
 interface ImportMetaEnv {
   readonly VITE_BASE_DOMAIN: string
 }

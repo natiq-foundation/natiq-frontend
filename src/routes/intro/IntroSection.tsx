@@ -1,6 +1,6 @@
 import { openApp } from "@/lib/appLink"
 import VerseTicker from "./RandomVerse"
-import LogoIcon from "/public/logoicon.svg?react"
+import LogoIcon from "@/assets/icons/logoicon.svg?react"
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
 
