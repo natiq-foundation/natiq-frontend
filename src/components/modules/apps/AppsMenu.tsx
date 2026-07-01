@@ -1,5 +1,5 @@
 import { openApp } from "@/lib/appLink"
-import LogoIcon from "/public/logoicon.svg?react"
+import LogoIcon from "@/assets/icons/logoicon.svg?react"
 import { useTranslation } from "react-i18next"
 
 type AppSubdomain = Parameters<typeof openApp>[0]
