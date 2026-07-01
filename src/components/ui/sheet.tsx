@@ -21,7 +21,9 @@ function Sheet({
     onOpenChange?: (open: boolean) => void;
     children: React.ReactNode;
 }) {
-    const onClose = () => onOpenChange?.(false);
+    const onClose = React.useCallback(() => {
+        onOpenChange?.(false);
+    }, [onOpenChange]);
 
     React.useEffect(() => {
         if (!open) return;
@@ -30,7 +32,7 @@ function Sheet({
         };
         document.addEventListener("keydown", handler);
         return () => document.removeEventListener("keydown", handler);
-    }, [open]);
+    }, [open, onClose]);
 
     return (
         <SheetContext.Provider value={{ open, onClose }}>

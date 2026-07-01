@@ -1,11 +1,16 @@
+declare global {
+  interface Navigator {
+    standalone?: boolean
+  }
+}
+
 export function isStandaloneDisplayMode() {
   return window.matchMedia("(display-mode: standalone)").matches
 }
 
 export function isIOSStandalone() {
-  return "standalone" in window.navigator && (window.navigator as any).standalone === true
+  return window.navigator.standalone === true
 }
-
 export function isAndroidTWAReferrer() {
   return document.referrer.includes("android-app://")
 }
