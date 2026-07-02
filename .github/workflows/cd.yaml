@@ -32,6 +32,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_BUCKET: ${{ vars.AWS_S3_BUCKET_NAME }}
           AWS_S3_ENDPOINT_URL: ${{ vars.AWS_S3_ENDPOINT_URL }}
-          AWS_DEFAULT_REGION: ir-thr-at1
+          AWS_DEFAULT_REGION: us-east-1
         run: |
-          aws s3 sync dist/ "s3://${AWS_S3_BUCKET}" --endpoint-url "${AWS_S3_ENDPOINT_URL}" --delete
+          aws s3 sync dist/ "s3://${AWS_S3_BUCKET}" \
+            --endpoint-url "${AWS_S3_ENDPOINT_URL}" \
+            --delete \
+            --acl public-read
