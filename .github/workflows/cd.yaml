@@ -8,6 +8,7 @@ on:
 
 jobs:
   deploy:
+    if: github.repository == vars.GIT_HUB_SOURCE_REPOSITORY
     runs-on: ubuntu-latest
 
     steps:
