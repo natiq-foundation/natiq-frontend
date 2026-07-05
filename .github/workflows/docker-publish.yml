@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
-      - test
-
   workflow_dispatch:
 
 jobs:
@@ -51,9 +48,6 @@ jobs:
           images: ${{ vars.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_HUB_REPO_NAME }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=ref,event=branch
-            type=ref,event=tag
-            type=sha
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
