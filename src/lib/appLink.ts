@@ -1,10 +1,11 @@
 import { isPWA } from "./isPWA"
+import { links } from "@/links"
 
 const apps = {
-  quran: import.meta.env.VITE_APP_QURAN,
-  blog: import.meta.env.VITE_APP_BLOG,
-  sponsor: import.meta.env.VITE_APP_SPONSOR,
-  dev: import.meta.env.VITE_APP_DEV,
+  quran: links.quran,
+  blog: links.blog,
+  sponsor: links.sponsor,
+  dev: links.dev,
 } as const
 
 export function openApp(app: keyof typeof apps) {
