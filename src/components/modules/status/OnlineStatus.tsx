@@ -25,7 +25,7 @@ export default function OnlineStatus({ onVisibleChange }: Props) {
 
   const labels: Record<Status, string> = {
     offline: "You're offline",
-    disconnected: "You're not connected",
+    disconnected: "Can't Connect to Server",
     connecting: "Connecting…",
     online: "Online",
   }
