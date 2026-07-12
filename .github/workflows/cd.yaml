@@ -43,4 +43,5 @@ jobs:
           aws s3 sync dist/ "s3://${AWS_S3_BUCKET}" \
             --endpoint-url "${AWS_S3_ENDPOINT_URL}" \
             --delete \
+            --exclude "robots.txt" \
             --acl public-read
