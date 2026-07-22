@@ -3,7 +3,6 @@ import Router from "./router"
 
 import InstallPrompt from "@/components/features/installPrompt/InstallPrompt"
 import IOSGuide from "@/routes/launcher/IOSGuide"
-import OnlineStatus from "@/components/modules/status/OnlineStatus"
 
 import { LanguageSync } from "@/components/features//languageSync/LanguageSync"
 
@@ -23,9 +22,6 @@ export default function App() {
           {/* PWA prompts */}
           <IOSGuide />
           <InstallPrompt />
-
-          {/* Network bar */}
-          <OnlineStatus />
         </div>
       </ThemeProvider>
     </SettingsProvider>
