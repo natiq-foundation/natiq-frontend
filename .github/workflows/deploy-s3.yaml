@@ -8,7 +8,7 @@ on:
 
 jobs:
   preflight:
-    name: Preflight (fork-safe check)
+    name: Check Required Secrets & Variables
     runs-on: ubuntu-latest
     outputs:
       enabled: ${{ steps.check.outputs.enabled }}
