@@ -1,0 +1,75 @@
+name: CD Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  preflight:
+    name: Preflight (fork-safe check)
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
+    steps:
+      - name: Check S3 deployment configuration
+        id: check
+        env:
+          AWS_S3_BUCKET_NAME: ${{ vars.AWS_S3_BUCKET_NAME }}
+        run: |
+          if [ -z "$AWS_S3_BUCKET_NAME" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "⏭️ **S3 deployment skipped** — \`AWS_S3_BUCKET_NAME\` is not set (expected on forks). To enable it, add \`AWS_S3_BUCKET_NAME\`, \`AWS_ACCESS_KEY_ID\`, and \`AWS_SECRET_ACCESS_KEY\`." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    name: Deploy to S3
+    needs: preflight
+    if: needs.preflight.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate required credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          [ -n "$AWS_ACCESS_KEY_ID" ] || { echo "::error::vars.AWS_ACCESS_KEY_ID is not set."; exit 1; }
+          [ -n "$AWS_SECRET_ACCESS_KEY" ] || { echo "::error::secrets.AWS_SECRET_ACCESS_KEY is not set."; exit 1; }
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Prepare .env file
+        run: |
+          if [ ! -f .env ]; then
+            cp .env.example .env
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to S3 Cloud Storage
+        env:
+          AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ vars.AWS_S3_BUCKET_NAME }}
+          AWS_S3_ENDPOINT_URL: ${{ vars.AWS_S3_ENDPOINT_URL }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          aws s3 sync dist/ "s3://${AWS_S3_BUCKET}" \
+            --endpoint-url "${AWS_S3_ENDPOINT_URL}" \
+            --delete \
+            --exclude "robots.txt" \
+            --acl public-read
