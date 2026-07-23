@@ -46,6 +46,7 @@ jobs:
           if [ -z "$DOCKER_HUB_ACCESS_TOKEN" ]; then
             echo "::error::Repository secret DOCKER_HUB_ACCESS_TOKEN is missing."
             exit 1
+          fi
 
       - name: Checkout repository
         uses: actions/checkout@v4
