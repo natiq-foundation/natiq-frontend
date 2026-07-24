@@ -109,13 +109,12 @@ export default function OnlineStatus({ onVisibleChange }: Props) {
   return (
     <div
       className={`
-        fixed top-0 left-0 w-full h-5
-        text-white text-xs
-        flex items-center justify-center
-        z-[9999]
-        transition-all duration-300
-        ${colors[status]}
-      `}
+                w-full h-5
+                text-white text-xs
+                flex items-center justify-center
+                transition-all duration-300
+                ${colors[status]}
+            `}
     >
       {labels[status]}
     </div>

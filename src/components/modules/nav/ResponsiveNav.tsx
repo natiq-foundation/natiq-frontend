@@ -1,28 +1,26 @@
 import { ReactNode } from "react"
+import { NavLink } from "react-router-dom"
 
 type ItemProps = {
-  icon: ReactNode;
-  label: string;
-  onClick?: () => void;
-  active?: boolean;
-};
+  icon: ReactNode
+  label: string
+  to: string
+}
 
-
-export function NavItem({ icon, label, onClick, active }: ItemProps) {
+export function NavItem({ icon, label, to }: ItemProps) {
   return (
-    <button
-      onClick={onClick}
-      className={`
-        flex flex-col items-center justify-center gap-1 transition
-        ${active ? "text-primary" : "text-on-surface-variant"}
-      `}
+    <NavLink
+      to={to}
+      className={({ isActive }) => `
+                flex flex-col items-center justify-center gap-1 transition
+                ${isActive ? "text-primary" : "text-on-surface-variant"}
+            `}
     >
       <div className="text-xl">{icon}</div>
       <span className="text-xs">{label}</span>
-    </button>
-  );
+    </NavLink>
+  )
 }
-
 
 type ResponsiveMenuProps = {
   children: ReactNode
@@ -35,9 +33,9 @@ export default function ResponsiveMenu({ children, open }: ResponsiveMenuProps) 
       {/* Desktop side menu */}
       <div
         className={`hidden md:flex fixed top-20 left-4 z-40 flex-col gap-3 
-        bg-surface-container rounded-2xl p-2 elevation-2
-        transition-all duration-200
-        ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
+                bg-surface-container rounded-2xl p-2 elevation-2
+                transition-all duration-200
+                ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}
       >
         {children}
       </div>
