@@ -4,16 +4,15 @@ README.md
 metadata.json
 package.json
 package-lock.json
+docker-compose.yml
 
+.env
+.env.example
 
 /public/*
 
 /src/*
 !/src/style.css
-!/src/components/*
-
-/src/contexts/settingsContext.tsx
-
-docker-compose.yml
-Dockerfile
-.dockerignore
+!/src/components
+!/src/layouts
+!/src/lib
