@@ -4,18 +4,17 @@ import App from "./App"
 import "./style.css"
 import { registerSW } from "virtual:pwa-register"
 import "./i18n"
-
+import { ErrorBoundary } from "./components/modules/errors/ErrorBoundary"
+import { validateRequiredEnv } from "./lib/env"
 
 document.addEventListener("wheel", (e) => {
   if (e.ctrlKey) e.preventDefault()
 }, { passive: false })
 
-// Prevent pinch-zoom on mobile
 document.addEventListener("touchmove", (e) => {
   if (e.touches.length > 1) e.preventDefault()
 }, { passive: false })
 
-// Prevent double-tap zoom
 let lastTouchEnd = 0
 document.addEventListener("touchend", (e) => {
   const now = Date.now()
@@ -23,20 +22,39 @@ document.addEventListener("touchend", (e) => {
   lastTouchEnd = now
 }, { passive: false })
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+validateRequiredEnv()
 
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+const rootElement = document.getElementById("root")!
 
-// register service worker
-registerSW({
-  onNeedRefresh() {
-    console.log("New content available, refresh needed.")
-  },
-  onOfflineReady() {
-    console.log("App ready to work offline")
-  },
+try {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </React.StrictMode>
+  )
+} catch (error) {
+  console.error("[main] Fatal error while mounting the app:", error)
+  rootElement.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;padding:24px;">
+      <h1>Something went wrong</h1>
+      <p style="color:#666;max-width:420px;">
+        The app failed to start due to a configuration error. Check the browser console for details.
+      </p>
+    </div>
+  `
+}
 
-})
+try {
+  registerSW({
+    onNeedRefresh() {
+      console.log("New content available, refresh needed.")
+    },
+    onOfflineReady() {
+      console.log("App ready to work offline")
+    },
+  })
+} catch (error) {
+  console.error("[main] Failed to register service worker:", error)
+}
