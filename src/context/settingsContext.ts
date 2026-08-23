@@ -1,4 +1,4 @@
-import { createLocalStorageContext, LangCodeType } from "@yakad/lib";
+import { createCookiesContext, LangCodeType } from "@yakad/lib";
 
 export interface Settings {
     themeMode: "system" | "dark" | "light";
@@ -18,5 +18,9 @@ const defaultSettings: Settings = {
     },
 };
 
-export const [SettingsProvider, useSettings] =
-    createLocalStorageContext<Settings>("settings", defaultSettings);
+export const [SettingsProvider, useSettings] = createCookiesContext<Settings>(
+    "settings",
+    defaultSettings,
+    "/",
+    ".natiq.org"
+);
