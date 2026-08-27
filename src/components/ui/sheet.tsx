@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { XIcon } from "lucide-react";
+import { Material } from "@yakad/symbols";
+
 import { cn } from "@/lib/utils";
 
 type Side = "top" | "right" | "bottom" | "left";
@@ -114,7 +115,7 @@ function SheetContent({
                     onClick={onClose}
                     className="absolute top-4 right-4 rounded-xs opacity-70 hover:opacity-100 transition-opacity"
                 >
-                    <XIcon className="size-4" />
+                    <Material icon="close" className="size-4" />
                     <span className="sr-only">Close</span>
                 </button>
             </div>

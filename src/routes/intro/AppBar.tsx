@@ -69,7 +69,7 @@ export function AppBar({ hideApps }: Props) {
                                     transition
                                 "
               >
-                <Menu size={22} />
+                <Material icon="menu" size={22} />
               </button>
 
               <span className="ml-3 font-medium text-sm tracking-wide">
