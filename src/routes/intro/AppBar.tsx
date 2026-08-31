@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { Menu } from "lucide-react"
 import { Material } from "@yakad/symbols"
 
 import { DropdownButton } from "./DropdownButton"
