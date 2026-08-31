@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { Menu } from "lucide-react"
 import { Material } from "@yakad/symbols"
 
 import { DropdownButton } from "./DropdownButton"
@@ -69,7 +68,7 @@ export function AppBar({ hideApps }: Props) {
                                     transition
                                 "
               >
-                <Menu size={22} />
+                <Material icon="menu" size={22} />
               </button>
 
               <span className="ml-3 font-medium text-sm tracking-wide">
