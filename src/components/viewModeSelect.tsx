@@ -18,7 +18,7 @@ const ViewModeSelect = forwardRef<
                 <GridItem
                     xl={6}
                     onClick={() => handleSelect("view1")}
-                    className={`${styles.item} ${styles.mushaf} ${
+                    className={`${styles.item} ${styles.rasm_ol_mushaf} ${
                         selectedView === "view1" ? styles.selected : ""
                     }`}
                 >

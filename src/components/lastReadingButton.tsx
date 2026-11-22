@@ -14,7 +14,7 @@ const LastReadingButton = () => {
 
     const handleClick = () => {
         if (configFromLocalStorage) {
-            navigate("/quran/" + configFromLocalStorage.surahUUID);
+            navigate("/quran/" + configFromLocalStorage.surahID);
         }
     };
 

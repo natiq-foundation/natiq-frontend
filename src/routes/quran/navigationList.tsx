@@ -17,7 +17,7 @@ import {
     CheckBox,
 } from "@yakad/ui";
 import { QuranConfigProps } from ".";
-import { selectDefaultTranslationUUIDFromList } from "./config";
+import { selectDefaultTranslationIDFromList } from "./config";
 
 interface CollapseList {
     [n: number]: boolean;
@@ -106,7 +106,7 @@ const NavListItemsQuran = ({
     const [surahList, setSurahList] = useState<Surah[] | null>(null);
 
     useEffect(() => {
-        surahsList({ query: { mushaf: "hafs", limit: 115 } })
+        surahsList({ query: { rasm_ol_mushaf: "hafs", limit: 115 } })
             .then((data) => {
                 setSurahList(data.data || null);
             })
@@ -122,18 +122,18 @@ const NavListItemsQuran = ({
                     <>
                         <Select
                             variant="filled"
-                            name="surahUUID"
+                            name="surahID"
                             placeholder="Surah"
-                            defaultValue={config.surahUUID}
+                            defaultValue={config.surahID}
                             onChange={(e) =>
                                 setConfig({
                                     ...config,
-                                    surahUUID: e.target.value,
+                                    surahID: e.target.value,
                                 })
                             }
                         >
                             {surahList.map((surah) => (
-                                <option key={surah.uuid} value={surah.uuid}>
+                                <option key={surah.id} value={surah.id}>
                                     {surah.number +
                                         " - " +
                                         (surah.names[0] as any).name}
@@ -154,14 +154,14 @@ const NavListItemsQuran = ({
                         >
                             {surahList.map(
                                 (surah) =>
-                                    surah.uuid === config.surahUUID &&
+                                    surah.id === config.surahID &&
                                     Array.from({
                                         length: parseInt(surah.number_of_ayahs), // FIX this
                                     }).map((_, index) => (
                                         <option key={index} value={index + 1}>
                                             {index + 1}
                                         </option>
-                                    ))
+                                    )),
                             )}
                         </Select>
                     </>
@@ -211,7 +211,7 @@ const NavListItemsTranslation = (props: {
         mushafsList().then((response) => {
             translationsList({
                 query: {
-                    mushaf: "hafs",
+                    rasm_ol_mushaf: "hafs",
                 },
             })
                 .then((data) => {
@@ -226,11 +226,11 @@ const NavListItemsTranslation = (props: {
     //Set a Translation as Default if no one selected before
     useEffect(() => {
         if (translationList) {
-            if (props.config.translationUUID === undefined)
+            if (props.config.translationID === undefined)
                 props.setConfig({
                     ...props.config,
-                    translationUUID:
-                        selectDefaultTranslationUUIDFromList(translationList),
+                    translationID:
+                        selectDefaultTranslationIDFromList(translationList),
                 });
         }
     }, [translationList]); //eslint-disable-line
@@ -251,30 +251,27 @@ const NavListItemsTranslation = (props: {
                 />
             </ListItem>
             <ListItem>
-                {translationList && props.config.translationUUID ? (
+                {translationList && props.config.translationID ? (
                     <Select
                         variant="filled"
                         placeholder="Translation"
                         defaultValue={
-                            props.config.translationUUID
-                                ? props.config.translationUUID
+                            props.config.translationID
+                                ? props.config.translationID
                                 : undefined
                         }
                         onChange={(e) =>
                             props.setConfig({
                                 ...props.config,
-                                translationUUID: e.target.value,
+                                translationID: e.target.value,
                             })
                         }
                     >
                         {translationList.map((translation) => (
-                            <option
-                                key={translation.uuid}
-                                value={translation.uuid}
-                            >
+                            <option key={translation.id} value={translation.id}>
                                 {translation.language +
                                     " - " +
-                                    translation.translator_uuid}
+                                    translation.translator_id}
                             </option>
                         ))}
                     </Select>

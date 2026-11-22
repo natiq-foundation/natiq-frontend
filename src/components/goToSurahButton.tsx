@@ -11,7 +11,7 @@ const GoToSurahButton = (props: RandomSurahButtonProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/quran/" + props.surahList[props.surahNumber - 1].uuid);
+        navigate("/quran/" + props.surahList[props.surahNumber - 1].id);
     };
 
     return (
