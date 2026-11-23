@@ -12,7 +12,7 @@ const RandomSurahButton = (props: RandomSurahButtonProps) => {
 
     const handleClick = () => {
         const randomNumber = Math.floor(Math.random() * surahLength);
-        navigate("/quran/" + props.surahList[randomNumber].uuid);
+        navigate("/quran/" + props.surahList[randomNumber].id);
     };
 
     return (

@@ -19,7 +19,7 @@ import SurahPeriodIcon from "components/surahPeriodIcon";
 
 export default function SearchSection(props: { surahList: Surah[] }) {
     const [filteredSurahList, setFilteredSurahList] = useState<Surah[]>(
-        props.surahList
+        props.surahList,
     );
 
     const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -32,7 +32,7 @@ export default function SearchSection(props: { surahList: Surah[] }) {
                 "names",
                 "period",
                 "arabic",
-            ])
+            ]),
         );
     };
 
@@ -127,7 +127,7 @@ const SearchResult = (props: { surahList: Surah[] }) => (
         ) : (
             <GridContainer>
                 {props.surahList.map((surah) => (
-                    <GridItem xl={4} md={6} xs={12} key={surah.uuid}>
+                    <GridItem xl={4} md={6} xs={12} key={surah.id}>
                         <SurahLinkBox surah={surah} />
                     </GridItem>
                 ))}
@@ -139,7 +139,7 @@ const SearchResult = (props: { surahList: Surah[] }) => (
 const SurahLinkBox = (props: { surah: Surah }) => {
     const navigate = useNavigate();
     return (
-        <Card onClick={() => navigate(`/quran/${props.surah.uuid}`)}>
+        <Card onClick={() => navigate(`/quran/${props.surah.id}`)}>
             <Row>
                 <span
                     style={{

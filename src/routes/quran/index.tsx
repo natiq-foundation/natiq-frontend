@@ -10,17 +10,17 @@ import { defaultConfigData } from "./config";
 
 export interface QuranConfigProps {
     viewMode: string;
-    surahUUID: string;
+    surahID: string;
     ayahNumber: number;
     translationView: boolean;
-    translationUUID: string | undefined;
+    translationID: string | undefined;
 }
 
 export default function Quran() {
     const { id } = useParams();
 
     const [config, setConfig] = React.useState<QuranConfigProps>(
-        defaultConfigData(id as string)
+        defaultConfigData(id as string),
     );
 
     useEffect(() => {

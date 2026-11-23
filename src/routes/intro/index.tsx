@@ -14,7 +14,7 @@ export default function Intro() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        surahsList({ query: { mushaf: "hafs", limit: 200 } })
+        surahsList({ query: { rasm_ol_mushaf: "hafs", limit: 200 } })
             .then((data) => {
                 setSurahList(data.data || null);
             })

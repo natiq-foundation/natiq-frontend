@@ -24,51 +24,52 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
     const [translation, setTranslation] = useState<Translation | null>(null);
 
     useEffect(() => {
-        navigate("/quran/" + config.surahUUID);
+        navigate("/quran/" + config.surahID);
         setLoading(true);
         setSurah(null);
         setTranslationAyahs(null);
-        surahsRetrieve({ path: { uuid: config.surahUUID } })
+        surahsRetrieve({ path: { id: config.surahID } })
             .then((data) => {
                 setSurah(data.data || null);
-                setLoading(false)
+                setLoading(false);
                 console.log(data.error);
             })
             .catch((err) => {
                 console.error(err);
             });
-    }, [config.surahUUID]); //eslint-disable-line
+    }, [config.surahID]); //eslint-disable-line
 
     useEffect(() => {
-        setLoading(true)
-        if (config.translationUUID) {
-            translationsRetrieve({ path: { uuid: config.translationUUID } })
+        setLoading(true);
+        if (config.translationID) {
+            translationsRetrieve({ path: { id: config.translationID } })
                 .then((data) => {
                     setTranslation(data.data || null);
-                    setLoading(false)
+                    setLoading(false);
                 })
                 .catch((err) => {
                     console.error(err);
                 });
 
             translationsAyahsList({
-                path: { uuid: config.translationUUID },
-                query: { surah_uuid: config.surahUUID },
+                path: { id: config.translationID },
+                query: { surah_id: config.surahID },
             })
                 .then((data) => {
-                    setLoading(false)
+                    setLoading(false);
                     setTranslationAyahs(data.data || null);
                 })
                 .catch((err) => {
                     console.error(err);
                 });
         }
-    }, [config.surahUUID, config.translationUUID]); //eslint-disable-line
+    }, [config.surahID, config.translationID]); //eslint-disable-line
 
     return (
         <>
-            {
-                loading || !surah ? <LoadingIcon size="large" variant="dots" /> : (
+            {loading || !surah ? (
+                <LoadingIcon size="large" variant="dots" />
+            ) : (
                 <>
                     <SurahHeader
                         config={config}
@@ -83,9 +84,7 @@ const QuranView = ({ config }: { config: QuranConfigProps }) => {
                         translationData={translationAyahs}
                     />
                 </>
-            )
-                
-            }
+            )}
         </>
     );
 };
