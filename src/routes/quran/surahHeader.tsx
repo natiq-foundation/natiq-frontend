@@ -40,7 +40,7 @@ const SurahHeader = (props: {
             {/* TODO: Is this ok? */}
             <SurahPeriodIcon period={props.surahData.period || "madani"} />
         </Row>
-        {props.surahData.ayahs[0].is_bismillah? (
+        {props.surahData.ayahs[0].is_bismillah ? (
             <>
                 <H3
                     style={{
@@ -82,7 +82,7 @@ const SurahHeader = (props: {
                         margin: "0",
                     }}
                 >
-                    {props.surahData.ayahs[0].bismillah_text}
+                    {props.surahData.bismillah?.text ?? ""}
                 </H3>
                 {props.config.translationView ? (
                     <H4
