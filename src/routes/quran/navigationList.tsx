@@ -269,9 +269,9 @@ const NavListItemsTranslation = (props: {
                     >
                         {translationList.map((translation) => (
                             <option key={translation.id} value={translation.id}>
-                                {translation.language +
-                                    " - " +
-                                    translation.translator_id}
+                                {translation.translator
+                                    ? `${translation.language} - ${translation.translator.name}`
+                                    : translation.language}
                             </option>
                         ))}
                     </Select>
